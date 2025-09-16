@@ -1,75 +1,104 @@
 <!doctype html>
+
 <html lang="th">
+
   <head>
+
     <meta charset="utf-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>ohmai — AI & Automation by Ohm</title>
+
     <meta name="description" content="Personal site for AI + automation (n8n, generative AI, workflows).">
-    
-        <style>
+
+    <style>
+
       :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Thai", "Noto Sans", sans-serif; }
+
       body { margin: 0; padding: 0; background: #0b0b0f; color: #e6e6f0; }
+
       header { padding: 56px 24px 16px; text-align: center; }
+
       h1 { font-size: 40px; margin: 0 0 12px; letter-spacing: 0.5px; }
+
       p.lead { margin: 0; opacity: 0.85; }
+
       .cta { margin: 28px auto 0; display: inline-block; padding: 12px 18px; border-radius: 12px; background: #2a2a36; text-decoration: none; color: #e6e6f0; }
+
       .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); padding: 28px; max-width: 1000px; margin: 0 auto; }
+
       .card { background: #15151d; border: 1px solid #232333; border-radius: 14px; padding: 16px; }
+
       .card h3 { margin: 0 0 8px; }
+
       footer { text-align: center; padding: 36px 12px 56px; opacity: 0.7; }
+
       a { color: #9ecbff; }
+
       code { background:#0f0f17; border:1px solid #232333; padding:2px 6px; border-radius:6px;}
+
     </style>
-    
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
   </head>
+
   <body>
+
     <header>
+
       <h1>ohmai</h1>
+
       <p class="lead">AI & Automation by <strong>Ohm</strong> — Generative AI • n8n • no‑code/low‑code.</p>
+
       <a class="cta" href="#subscribe">ติดตามอัปเดต</a>
+
     </header>
 
+
+
     <section class="grid">
+
       <div class="card">
+
         <h3>เป้าหมาย</h3>
+
         <p>แชร์วิธีใช้ AI และ n8n แบบ <em>ผู้ใช้จริง</em> ไม่ต้องเป็นนักพัฒนา ก็ทำระบบอัตโนมัติได้</p>
+
       </div>
+
       <div class="card">
+
         <h3>คอนเทนต์ตัวอย่าง</h3>
+
         <ul>
+
           <li>Workflow: ตอบแชทลูกค้าอัตโนมัติจาก Google Sheets</li>
+
           <li>Prompt Kit: สร้างไอเดียคอนเทนต์ด้วย GenAI</li>
+
           <li>Automation: ส่งรายงานรายวันเข้า LINE</li>
+
         </ul>
+
       </div>
+
       <div class="card">
+
         <h3 id="subscribe">ติดตาม</h3>
+
         <p>วางลิงก์ YouTube / TikTok / Facebook หรือฟอร์มอีเมลที่นี่</p>
+
       </div>
+
     </section>
 
+
+
     <footer>© <span id="y"></span> ohmai.me — Built on Render</footer>
+
     <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 
-    <script type="module">
-      import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
-
-      createChat({
-        webhookUrl: "https://ohm-n8n.onrender.com/webhook/4d389ab8-852e-4e43-8cdc-db19e11ad4fa/chat",
-        initialMessages: [
-          "Hi there! 👋",
-          "My name is Zero. How can I assist you today?",
-        ],
-        i18n: {
-          en: {
-            title: "Hi there! 👋",
-            subtitle: "Start a chat. We're here to help you 24/7.",
-            inputPlaceholder: "Type your question.",
-          },
-        },
-      });
-    </script>
   </body>
+
 </html>
+
