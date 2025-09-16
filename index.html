@@ -1,104 +1,168 @@
 <!doctype html>
-
 <html lang="th">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ohmai — AI & Automation by Ohm</title>
+    <meta name="description" content="Personal site for AI + automation (n8n, generative AI, workflows).">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <head>
+    <style>
+      /* --- การตั้งค่าหลัก & ดีไซน์พื้นหลัง --- */
+      :root { 
+        font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Thai", "Noto Sans", sans-serif; 
+      }
+      body { 
+        margin: 0; 
+        padding: 0; 
+        background-color: #0b0b0f;
+        background-image: radial-gradient(circle at top, #1a1a2e 0%, #0b0b0f 50%);
+        color: #e6e6f0; 
+        line-height: 1.6;
+      }
+      
+      /* --- ส่วน Header & Title --- */
+      header { 
+        padding: 80px 24px 40px; 
+        text-align: center; 
+      }
+      h1 { 
+        font-size: 52px; 
+        font-weight: 700;
+        margin: 0 0 16px; 
+        letter-spacing: 1px; 
+        background: -webkit-linear-gradient(45deg, #ffffff, #9ecbff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      p.lead { 
+        margin: 0; 
+        opacity: 0.8; 
+        font-size: 1.1rem;
+      }
 
-    <meta charset="utf-8" />
+      /* --- ปุ่ม Call-to-Action --- */
+      .cta { 
+        margin: 32px auto 0; 
+        display: inline-block; 
+        padding: 14px 24px; 
+        border-radius: 12px; 
+        background: #4a4a6a; 
+        text-decoration: none; 
+        color: #ffffff;
+        font-weight: 600;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+      .cta:hover {
+        transform: scale(1.05);
+        background: #5a5a8a;
+      }
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+      /* --- Layout แบบ Grid & Card --- */
+      .grid { 
+        display: grid; 
+        gap: 24px; 
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+        padding: 28px; 
+        max-width: 1000px; 
+        margin: 0 auto; 
+      }
+      .card { 
+        background: rgba(21, 21, 29, 0.6);
+        border: 1px solid #2a2a3f;
+        border-radius: 16px; 
+        padding: 24px; 
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      }
+      .card h3 { 
+        margin: 0 0 12px;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #ffffff;
+      }
+      .card ul {
+        padding-left: 20px;
+        margin: 0;
+      }
 
-    <title>ohmai — AI & Automation by Ohm</title>
+      /* --- ส่วน Footer & Links --- */
+      footer { 
+        text-align: center; 
+        padding: 40px 12px 56px; 
+        opacity: 0.6; 
+      }
+      a { 
+        color: #9ecbff; 
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      code { 
+        background:#0f0f17; 
+        border:1px solid #2a2a3f; 
+        padding: 2px 6px; 
+        border-radius: 6px;
+      }
+    </style>
 
-    <meta name="description" content="Personal site for AI + automation (n8n, generative AI, workflows).">
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet"/>
+</head>
+<body>
+    <header>
+      <h1>ohmai</h1>
+      <p class="lead">AI & Automation by <strong>Ohm</strong> — Generative AI • n8n • no‑code/low‑code.</p>
+      <a class="cta" href="#subscribe">ติดตามอัปเดต</a>
+    </header>
 
-    <style>
+    <section class="grid">
+      <div class="card">
+        <h3>เป้าหมาย</h3>
+        <p>แชร์วิธีใช้ AI และ n8n แบบ <em>ผู้ใช้จริง</em> ไม่ต้องเป็นนักพัฒนา ก็ทำระบบอัตโนมัติได้</p>
+      </div>
+      <div class="card">
+        <h3>คอนเทนต์ตัวอย่าง</h3>
+        <ul>
+          <li>Workflow: ตอบแชทลูกค้าอัตโนมัติจาก Google Sheets</li>
+          <li>Prompt Kit: สร้างไอเดียคอนเทนต์ด้วย GenAI</li>
+          <li>Automation: ส่งรายงานรายวันเข้า LINE</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 id="subscribe">ติดตาม</h3>
+        <p>วางลิงก์ YouTube / TikTok / Facebook หรือฟอร์มอีเมลที่นี่</p>
+      </div>
+    </section>
 
-      :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Thai", "Noto Sans", sans-serif; }
+    <footer>© <span id="y"></span> ohmai.me — Built on Render</footer>
+    <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 
-      body { margin: 0; padding: 0; background: #0b0b0f; color: #e6e6f0; }
+    <script type="module">
+      import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
 
-      header { padding: 56px 24px 16px; text-align: center; }
-
-      h1 { font-size: 40px; margin: 0 0 12px; letter-spacing: 0.5px; }
-
-      p.lead { margin: 0; opacity: 0.85; }
-
-      .cta { margin: 28px auto 0; display: inline-block; padding: 12px 18px; border-radius: 12px; background: #2a2a36; text-decoration: none; color: #e6e6f0; }
-
-      .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); padding: 28px; max-width: 1000px; margin: 0 auto; }
-
-      .card { background: #15151d; border: 1px solid #232333; border-radius: 14px; padding: 16px; }
-
-      .card h3 { margin: 0 0 8px; }
-
-      footer { text-align: center; padding: 36px 12px 56px; opacity: 0.7; }
-
-      a { color: #9ecbff; }
-
-      code { background:#0f0f17; border:1px solid #232333; padding:2px 6px; border-radius:6px;}
-
-    </style>
-
-  </head>
-
-  <body>
-
-    <header>
-
-      <h1>ohmai</h1>
-
-      <p class="lead">AI & Automation by <strong>Ohm</strong> — Generative AI • n8n • no‑code/low‑code.</p>
-
-      <a class="cta" href="#subscribe">ติดตามอัปเดต</a>
-
-    </header>
-
-
-
-    <section class="grid">
-
-      <div class="card">
-
-        <h3>เป้าหมาย</h3>
-
-        <p>แชร์วิธีใช้ AI และ n8n แบบ <em>ผู้ใช้จริง</em> ไม่ต้องเป็นนักพัฒนา ก็ทำระบบอัตโนมัติได้</p>
-
-      </div>
-
-      <div class="card">
-
-        <h3>คอนเทนต์ตัวอย่าง</h3>
-
-        <ul>
-
-          <li>Workflow: ตอบแชทลูกค้าอัตโนมัติจาก Google Sheets</li>
-
-          <li>Prompt Kit: สร้างไอเดียคอนเทนต์ด้วย GenAI</li>
-
-          <li>Automation: ส่งรายงานรายวันเข้า LINE</li>
-
-        </ul>
-
-      </div>
-
-      <div class="card">
-
-        <h3 id="subscribe">ติดตาม</h3>
-
-        <p>วางลิงก์ YouTube / TikTok / Facebook หรือฟอร์มอีเมลที่นี่</p>
-
-      </div>
-
-    </section>
-
-
-
-    <footer>© <span id="y"></span> ohmai.me — Built on Render</footer>
-
-    <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
-
-  </body>
-
+      createChat({
+        webhookUrl: "https://ohm-n8n.onrender.com/webhook/4d389ab8-852e-4e43-8cdc-db19e11ad4fa/chat",
+        initialMessages: [
+          "Hi there! 👋",
+          "My name is Zero. How can I assist you today?",
+        ],
+        i18n: {
+          en: {
+            title: "Hi there! 👋",
+            subtitle: "Start a chat. We're here to help you 24/7.",
+            inputPlaceholder: "Type your question.",
+          },
+        },
+      });
+    </script>
+</body>
 </html>
-
