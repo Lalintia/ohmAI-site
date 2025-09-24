@@ -143,14 +143,14 @@
       </div>
     </section>
 
-    <footer>© <span id="y"></span> ohmai.me — Built on Render</footer>
+    <footer>© <span id="y"></span> ohmai.me — Built on AWS</footer>
     <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 
     <script type="module">
       import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
 
       createChat({
-        webhookUrl: "https://ohm-n8n.onrender.com/webhook/4d389ab8-852e-4e43-8cdc-db19e11ad4fa/chat",
+        webhookUrl: "https://dev.ohmai.me/webhook/4d389ab8-852e-4e43-8cdc-db19e11ad4fa/chat",
         initialMessages: [
           "Welcome!",
           "I’m here to help you explore our IR website packages and services.",
