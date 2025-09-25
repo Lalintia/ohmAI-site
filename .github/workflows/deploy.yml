@@ -1,9 +1,14 @@
-name: Deploy ohmai.me to EC2
+name: Deploy to EC2
 
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
+    # จะให้ยิงเมื่อแก้เฉพาะไฟล์เว็บหลัก ๆ (เพิ่ม/ลดได้ตามโครงสร้างของคุณ)
+    paths:
+      - 'index.html'
+      - 'assets/**'
+      - '!README.md'
+      - '!**/.github/**'
 
 jobs:
   deploy:
@@ -13,26 +18,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # อัปโหลดไฟล์ (ที่จำเป็น) ไปยัง EC2
-      - name: Copy site files to EC2
-        uses: appleboy/scp-action@v0.1.7
+      - name: Start SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: |
-            index.html
-            assets/**
-          target: /var/www/ohmai.me/html
-          overwrite: true # ทับไฟล์เดิม
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # สั่ง reload nginx (กันเหนียว)
-      - name: Reload Nginx
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            sudo systemctl reload nginx || true
-            ls -lah /var/www/ohmai.me/html
+      # ไม่ต้องเพิ่ม known_hosts แล้ว
+      # ใช้ StrictHostKeyChecking=no ตอน rsync/ssh แทน
+
+      - name: Rsync files to EC2
+        run: |
+          rsync -az --delete \
+            --exclude '.git' \
+            --exclude '.github' \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/ohmai.me/html
+
+      - name: Reload Nginx (optional)
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
+            'sudo systemctl reload nginx || true'
