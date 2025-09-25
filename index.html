@@ -3,15 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ohmai — AI & Automation by Ohm</title>
-    <meta name="description" content="Personal site for AI + automation (n8n, generative AI, workflows).">
+    <title>ShareInvestor AI Assistant Demo</title>
+    <meta name="description" content="Demonstration of an AI-powered assistant for ShareInvestor's IR Website services.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* -- test */
       /* --- การตั้งค่าหลัก & ดีไซน์พื้นหลัง --- */
       :root { 
         font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Thai", "Noto Sans", sans-serif; 
@@ -40,35 +39,19 @@
         -webkit-text-fill-color: transparent;
       }
       p.lead { 
-        margin: 0; 
-        opacity: 0.8; 
-        font-size: 1.1rem;
-      }
-
-      /* --- ปุ่ม Call-to-Action --- */
-      .cta { 
-        margin: 32px auto 0; 
-        display: inline-block; 
-        padding: 14px 24px; 
-        border-radius: 12px; 
-        background: #4a4a6a; 
-        text-decoration: none; 
-        color: #ffffff;
-        font-weight: 600;
-        transition: transform 0.2s ease, background 0.2s ease;
-      }
-      .cta:hover {
-        transform: scale(1.05);
-        background: #5a5a8a;
+        margin: 16px auto 0; 
+        opacity: 0.9; 
+        font-size: 1.2rem;
+        max-width: 600px;
       }
 
       /* --- Layout แบบ Grid & Card --- */
       .grid { 
         display: grid; 
         gap: 24px; 
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
         padding: 28px; 
-        max-width: 1000px; 
+        max-width: 800px; 
         margin: 0 auto; 
       }
       .card { 
@@ -93,6 +76,11 @@
       .card ul {
         padding-left: 20px;
         margin: 0;
+        list-style-type: '→ ';
+      }
+      .card ul li {
+        padding-left: 8px;
+        margin-bottom: 8px;
       }
 
       /* --- ส่วน Footer & Links --- */
@@ -120,31 +108,32 @@
 </head>
 <body>
     <header>
-      <h1>ohmai</h1>
-      <p class="lead">AI & Automation by <strong>Ohm</strong> — Generative AI • n8n • no‑code/low‑code.</p>
-      <a class="cta" href="#subscribe">ติดตามอัปเดต</a>
+      <h1>ShareInvestor AI Assistant</h1>
+      <p class="lead">ทดลองสอบถามข้อมูลเกี่ยวกับบริการจัดทำและพัฒนา IR Website ผ่าน AI Assistant ของเรา<br><strong>เพียงคลิกที่ไอคอน Chat มุมขวาล่าง</strong></p>
     </header>
 
     <section class="grid">
       <div class="card">
-        <h3>เป้าหมาย</h3>
-        <p>แชร์วิธีใช้ AI และ n8n แบบ <em>ผู้ใช้จริง</em> ไม่ต้องเป็นนักพัฒนา ก็ทำระบบอัตโนมัติได้</p>
-      </div>
-      <div class="card">
-        <h3>คอนเทนต์ตัวอย่าง</h3>
+        <h3>AI ของเราทำอะไรได้บ้าง</h3>
+        <p>AI ถูกเทรนมาบนข้อมูลบริการของ ShareInvestor เพื่อตอบคำถามเฉพาะทางเกี่ยวกับ:</p>
         <ul>
-          <li>Workflow: ตอบแชทลูกค้าอัตโนมัติจาก Google Sheets</li>
-          <li>Prompt Kit: สร้างไอเดียคอนเทนต์ด้วย GenAI</li>
-          <li>Automation: ส่งรายงานรายวันเข้า LINE</li>
+          <li>บริการออกแบบและพัฒนา IR Website</li>
+          <li>รายละเอียดแพ็กเกจและราคา</li>
+          <li>ฟีเจอร์ต่างๆ เช่น ระบบข่าวสาร, Financial Highlight</li>
         </ul>
       </div>
       <div class="card">
-        <h3 id="subscribe">ติดตาม</h3>
-        <p>วางลิงก์ YouTube / TikTok / Facebook หรือฟอร์มอีเมลที่นี่</p>
+        <h3>ตัวอย่างคำถามที่ลองถามได้</h3>
+        <p>คุณสามารถทดสอบ Chatbot โดยใช้คำถามเหล่านี้:</p>
+        <ul>
+          <li>IR Website คืออะไร?</li>
+          <li>แพ็กเกจ Standard ราคาเท่าไหร่?</li>
+          <li>มีบริการดูแลเว็บไซต์หลังเปิดตัวไหม?</li>
+        </ul>
       </div>
     </section>
 
-    <footer>© <span id="y"></span> ohmai.me — Built on AWS</footer>
+    <footer>© <span id="y"></span> ShareInvestor — IR Website Solutions</footer>
     <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 
     <script type="module">
@@ -153,19 +142,18 @@
       createChat({
         webhookUrl: "https://dev.ohmai.me/webhook/4d389ab8-852e-4e43-8cdc-db19e11ad4fa/chat",
         initialMessages: [
-          "Welcome!",
-          "I’m here to help you explore our IR website packages and services.",
-          "How may I assist you today?",
+          "สวัสดีครับ",
+          "ผมคือ AI Assistant จาก ShareInvestor ครับ",
+          "มีข้อสงสัยเกี่ยวกับบริการ IR Website หรือแพ็กเกจของเรา สอบถามได้เลยครับ",
         ],
         i18n: {
           en: {
-            title: "This is a Demo AI Chatbot",
-            subtitle: "IR Website Solutions",
-            inputPlaceholder: "Test it by asking about package details.",
+            title: "ShareInvestor AI Assistant",
+            subtitle: "ผู้เชี่ยวชาญด้าน IR Website",
+            inputPlaceholder: "สอบถามเกี่ยวกับแพ็กเกจ...",
           },
         },
       });
     </script>
 </body>
 </html>
-<!-- test deploy -->
