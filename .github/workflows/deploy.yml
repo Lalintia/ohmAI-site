@@ -1,0 +1,24 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main   # รัน workflow ทุกครั้งที่ push ไป main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy files to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@YOUR_SERVER_IP "mkdir -p /var/www/ohmai.me/html"
+          scp -o StrictHostKeyChecking=no index.html ubuntu@YOUR_SERVER_IP:/var/www/ohmai.me/html/
