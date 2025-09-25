@@ -1,8 +1,9 @@
-name: Deploy to EC2
+name: Deploy ohmai.me to EC2
 
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -12,29 +13,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # เพิ่มกุญแจ SSH ที่เราสร้างไว้ใน Secrets (ชื่อ SSH_PRIVATE_KEY)
-      - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
+      # อัปโหลดไฟล์ (ที่จำเป็น) ไปยัง EC2
+      - name: Copy site files to EC2
+        uses: appleboy/scp-action@v0.1.7
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: |
+            index.html
+            assets/**
+          target: /var/www/ohmai.me/html
+          overwrite: true # ทับไฟล์เดิม
 
-      # ใส่ host ลง known_hosts เพื่อไม่ให้ถามยืนยัน fingerprint ตอน ssh
-      - name: Add host to known_hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H ohmai.me >> ~/.ssh/known_hosts
-          # ถ้าเคย test ด้วย IP จะสแกนด้วย IP ด้วย (เผื่อ DNS เพิ่งเปลี่ยน)
-          ssh-keyscan -H 52.65.87.84 >> ~/.ssh/known_hosts
-
-      # ส่งไฟล์ทั้งหมดไปยังเครื่อง EC2
-      - name: Rsync files to EC2
-        run: |
-          rsync -avz --delete \
-            --exclude ".git*" \
-            --chmod=D755,F644 \
-            ./ ubuntu@ohmai.me:/var/www/ohmai.me/html
-
-      # (ไม่จำเป็นมากสำหรับ static) reload nginx เผื่อ cache
-      - name: Reload Nginx (optional)
-        run: |
-          ssh ubuntu@ohmai.me "sudo systemctl reload nginx || true"
+      # สั่ง reload nginx (กันเหนียว)
+      - name: Reload Nginx
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo systemctl reload nginx || true
+            ls -lah /var/www/ohmai.me/html
