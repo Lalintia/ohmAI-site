@@ -1,146 +1,135 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AI Chatbot Assistant Demo</title>
-    <meta name="description" content="Demonstration of an AI-powered assistant for ShareInvestor's IR Website services.">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Chatbot Test Page</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      /* --- การตั้งค่าหลัก & ดีไซน์พื้นหลัง --- */
-      :root { 
-        font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Thai", "Noto Sans", sans-serif; 
-      }
-      body { 
-        margin: 0; 
-        padding: 0; 
-        background-color: #0b0b0f;
-        background-image: radial-gradient(circle at top, #1a1a2e 0%, #0b0b0f 50%);
-        color: #e6e6f0; 
-        line-height: 1.6;
-      }
-      
-      /* --- ส่วน Header & Title --- */
-      header { 
-        padding: 80px 24px 40px; 
-        text-align: center; 
-      }
-      h1 { 
-        font-size: 52px; 
-        font-weight: 700;
-        margin: 0 0 16px; 
-        letter-spacing: 1px; 
-        background: -webkit-linear-gradient(45deg, #ffffff, #9ecbff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      p.lead { 
-        margin: 16px auto 0; 
-        opacity: 0.9; 
-        font-size: 1.2rem;
-        max-width: 600px;
-      }
-
-      /* --- Layout แบบ Grid & Card --- */
-      .grid { 
-        display: grid; 
-        gap: 24px; 
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-        padding: 28px; 
-        max-width: 800px; 
-        margin: 0 auto; 
-      }
-      .card { 
-        background: rgba(21, 21, 29, 0.6);
-        border: 1px solid #2a2a3f;
-        border-radius: 16px; 
-        padding: 24px; 
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-      .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-      }
-      .card h3 { 
-        margin: 0 0 12px;
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #ffffff;
-      }
-      .card ul {
-        padding-left: 20px;
+      body {
         margin: 0;
-        list-style-type: '→ ';
-      }
-      .card ul li {
-        padding-left: 8px;
-        margin-bottom: 8px;
+        font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Noto Sans Thai", "Noto Sans", sans-serif;
+        background: #0f0f17;
+        color: #e6e6f0;
       }
 
-      /* --- ส่วน Footer & Links --- */
-      footer { 
-        text-align: center; 
-        padding: 40px 12px 56px; 
-        opacity: 0.6; 
+      header,
+      footer {
+        text-align: center;
+        padding: 1rem;
       }
-      a { 
-        color: #9ecbff; 
-        text-decoration: none;
+
+      .container {
+        max-width: 900px;
+        margin: auto;
+        padding: 2rem;
       }
-      a:hover {
-        text-decoration: underline;
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        text-align: center;
       }
-      code { 
-        background:#0f0f17; 
-        border:1px solid #2a2a3f; 
-        padding: 2px 6px; 
-        border-radius: 6px;
+
+      p.lead {
+        font-size: 1.1rem;
+        color: #aaa;
+        text-align: center;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .card {
+        background: #1a1a26;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .card h3 {
+        margin-top: 0;
+        font-size: 1.2rem;
+      }
+
+      .card p {
+        font-size: 1rem;
+        color: #ccc;
+      }
+
+      footer {
+        font-size: 0.9rem;
+        color: #888;
+      }
+
+      /* --- Chat input alignment fix --- */
+      .n8n-chat-input {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        border-radius: 12px !important;
+        font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Noto Sans Thai", "Noto Sans", sans-serif !important;
+        font-size: 1rem !important;
       }
     </style>
-
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet"/>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-      <h1>AI Chatbot Assistant Demo</h1>
-      <p class="lead">ทดลองสอบถามข้อมูลเกี่ยวกับบริการจัดทำ และพัฒนา IR Website <br>ผ่าน AI Assistant ของเรา<br><strong>เพียงคลิกที่ไอคอน Chat มุมขวาล่าง</strong></p>
+      <h1>AI Chatbot Test Page</h1>
     </header>
+    <div class="container">
+      <p class="lead">
+        หน้านี้ใช้สำหรับทดสอบการเชื่อมต่อและการทำงานของ AI Chatbot เท่านั้น<br />
+        <strong>คลิกไอคอนแชตมุมขวาล่างเพื่อเริ่มสนทนา</strong>
+      </p>
 
-    <section class="grid">
-      <div class="card">
-        <h3>AI Chatbot ของเราทำอะไรได้บ้าง</h3>
-        <p>AI Chatbot เราถูกเทรนมาบนข้อมูลบริการของ ShareInvestor เพื่อตอบคำถามเฉพาะทางเกี่ยวกับ:</p>
-        <ul>
-          <li>บริการออกแบบและพัฒนา IR Website</li>
-          <li>รายละเอียดแพ็กเกจ</li>
-          <li>ฟีเจอร์ต่างๆ เช่น ระบบข่าวสาร, Financial Highlight</li>
-        </ul>
+      <div class="grid">
+        <div class="card">
+          <h3>เกี่ยวกับหน้านี้</h3>
+          <p>
+            นี่คือเพจตัวอย่างสำหรับทดสอบการฝัง AI Chatbot และการแสดงผลองค์ประกอบพื้นฐานของหน้าเว็บ
+          </p>
+          <ul>
+            <li>ตรวจสอบการโหลดสคริปต์และสไตล์</li>
+            <li>ทดสอบการสนทนากับบอท</li>
+            <li>ลองรีเฟรช/ปรับขนาดหน้าจอ</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>วิธีเริ่มต้น</h3>
+          <p>
+            คลิกไอคอนแชตมุมขวาล่าง จากนั้นพิมพ์ข้อความทดสอบเพื่อดูการตอบสนองของระบบ
+            AI
+          </p>
+          <ul>
+            <li>ลองส่งคำทักทาย</li>
+            <li>ทดลองถามคำถามทั่วไป</li>
+            <li>สังเกตความเร็วและความถูกต้องของการตอบ</li>
+          </ul>
+        </div>
       </div>
-      <div class="card">
-        <h3>สอบถามได้ เหมือนคุยกับคน</h3>
-        <p>ไม่ต้องกังวลเรื่องคีย์เวิร์ดหรือรูปแบบประโยค อยากรู้อะไรเกี่ยวกับ IR Website พิมพ์ถามได้เลย เช่น:</p>
-        <ul>
-          <li>"อยากรู้ว่า IR Website ต่างจากเว็บทั่วไปอย่างไร"</li>
-          <li>"มีแพคเกจอะไรบ้าง"</li>
-          <li>"ทำเว็บเสร็จแล้ว มีคนช่วยอัปเดตข้อมูลให้ต่อไหม"</li>
-        </ul>
-      </div>
-    </section>
+    </div>
+    <footer>© <span id="y"></span> AI Chatbot Test Page</footer>
 
-    <footer>© <span id="y"></span> ShareInvestor — IR Website Solutions</footer>
-    <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
 
+    <!-- ตัว chatbot ดั้งเดิม -->
     <script type="module">
       import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
-
       createChat({
-        webhookUrl: "https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat",
+        webhookUrl:
+          "https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat",
         initialMessages: [
           "สวัสดีครับ",
           "ผมคือ KStrategist",
@@ -148,12 +137,12 @@
         ],
         i18n: {
           en: {
-            title: "ShareInvestor AI Assistant",
-            subtitle: "ผู้เชี่ยวชาญด้าน IR Website",
-            inputPlaceholder: "สอบถามเกี่ยวกับแพ็กเกจ...",
+            title: "AI Chatbot",
+            subtitle: "Test Assistant",
+            inputPlaceholder: "พิมพ์ข้อความที่นี่...",
           },
         },
       });
     </script>
-</body>
+  </body>
 </html>
