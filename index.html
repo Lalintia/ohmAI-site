@@ -1,260 +1,169 @@
 <!doctype html>
 <html lang="th">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI Chatbot Demo</title>
-  <meta name="description" content="Landing page for testing multiple AI Chatbots (custom widget, no external libs)." />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ohmai — AI & Automation by Ohm</title>
+    <meta name="description" content="Personal site for AI + automation (n8n, generative AI, workflows).">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* --- การตั้งค่าหลัก & ดีไซน์พื้นหลัง --- */
+      :root { 
+        font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Thai", "Noto Sans", sans-serif; 
+      }
+      body { 
+        margin: 0; 
+        padding: 0; 
+        background-color: #0b0b0f;
+        background-image: radial-gradient(circle at top, #1a1a2e 0%, #0b0b0f 50%);
+        color: #e6e6f0; 
+        line-height: 1.6;
+      }
+      
+      /* --- ส่วน Header & Title --- */
+      header { 
+        padding: 80px 24px 40px; 
+        text-align: center; 
+      }
+      h1 { 
+        font-size: 52px; 
+        font-weight: 700;
+        margin: 0 0 16px; 
+        letter-spacing: 1px; 
+        background: -webkit-linear-gradient(45deg, #ffffff, #9ecbff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      p.lead { 
+        margin: 0; 
+        opacity: 0.8; 
+        font-size: 1.1rem;
+      }
 
-  <style>
-    :root {
-      --bg: #0b0b0f;
-      --bg2: #15151d;
-      --text: #e6e6f0;
-      --muted: #b9bfd3;
-      --card: rgba(21,21,29,.6);
-      --border: #2a2a3f;
-      --accent: #9ecbff;
-      --accent-2: #5a5a8a;
-      --success: #9ef59e;
-      --warn: #ffd27a;
-      --error: #ff9e9e;
-      font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Noto Sans Thai', 'Noto Sans', sans-serif;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; background: radial-gradient(circle at top, #1a1a2e 0%, var(--bg) 50%); color: var(--text); line-height: 1.6; }
+      /* --- ปุ่ม Call-to-Action --- */
+      .cta { 
+        margin: 32px auto 0; 
+        display: inline-block; 
+        padding: 14px 24px; 
+        border-radius: 12px; 
+        background: #4a4a6a; 
+        text-decoration: none; 
+        color: #ffffff;
+        font-weight: 600;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+      .cta:hover {
+        transform: scale(1.05);
+        background: #5a5a8a;
+      }
 
-    header { padding: 80px 24px 16px; text-align: center; }
-    h1 { font-size: 52px; font-weight: 700; margin: 0 0 12px; letter-spacing: .5px; background: -webkit-linear-gradient(45deg,#fff,var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .lead { margin: 0; opacity: .85; font-size: 1.06rem; }
+      /* --- Layout แบบ Grid & Card --- */
+      .grid { 
+        display: grid; 
+        gap: 24px; 
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+        padding: 28px; 
+        max-width: 1000px; 
+        margin: 0 auto; 
+      }
+      .card { 
+        background: rgba(21, 21, 29, 0.6);
+        border: 1px solid #2a2a3f;
+        border-radius: 16px; 
+        padding: 24px; 
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      }
+      .card h3 { 
+        margin: 0 0 12px;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #ffffff;
+      }
+      .card ul {
+        padding-left: 20px;
+        margin: 0;
+      }
 
-    .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); padding: 28px; max-width: 1050px; margin: 0 auto; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,.22); }
-    .card h3 { margin: 0 0 10px; font-size: 1.18rem; font-weight: 600; color: #fff; }
+      /* --- ส่วน Footer & Links --- */
+      footer { 
+        text-align: center; 
+        padding: 40px 12px 56px; 
+        opacity: 0.6; 
+      }
+      a { 
+        color: #9ecbff; 
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      code { 
+        background:#0f0f17; 
+        border:1px solid #2a2a3f; 
+        padding: 2px 6px; 
+        border-radius: 6px;
+      }
+    </style>
 
-    .bots { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); padding: 0 28px 12px; max-width: 1050px; margin: 0 auto; }
-    .bot-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 16px; border-radius: 14px; background: #20202c; border: 1px solid var(--border); color: #fff; text-decoration: none; font-weight: 600; cursor: pointer; box-shadow: 0 3px 14px rgba(0,0,0,.25); transition: transform .18s ease, background .18s ease; }
-    .bot-btn:hover { transform: translateY(-2px); background: #26263a; }
-    .bot-badge { font-size: .78rem; color: var(--muted); }
-
-    footer{ text-align:center; padding: 38px 12px 56px; opacity:.6; }
-
-    /* Status bar */
-    #statusbar { box-sizing: border-box; width: 100%; padding: 10px 14px; background: rgba(20,20,30,.7); border-bottom: 1px solid var(--border); display: none; }
-    #statusbar.ok { display: block; color: var(--success); }
-    #statusbar.warn { display: block; color: var(--warn); }
-    #statusbar.err { display: block; color: var(--error); }
-
-    /* Chat panel (custom widget) */
-    .chat-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; align-items: stretch; justify-content: flex-end; z-index: 50; }
-    .chat-overlay.show { display: flex; }
-    .chat-panel { width: min(560px, 100%); height: 100%; background: var(--bg2); border-left: 1px solid var(--border); display: flex; flex-direction: column; }
-    .chat-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .chat-title { font-weight: 700; }
-    .chat-close { background: transparent; color: var(--muted); border: 1px solid var(--border); border-radius: 10px; padding: 6px 10px; cursor: pointer; }
-    .chat-close:hover{ color:#fff; }
-    .chat-body { flex: 1; overflow: auto; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
-    .msg { max-width: 86%; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--border); white-space: pre-wrap; word-break: break-word; }
-    .msg.user { align-self: flex-end; background: #2a2a3b; }
-    .msg.bot { align-self: flex-start; background: #1a1a26; }
-    .msg.sys { align-self: center; color: var(--muted); border: none; background: transparent; }
-
-    .chat-input { border-top: 1px solid var(--border); padding: 10px; display: grid; grid-template-columns: 1fr auto; gap: 10px; }
-    textarea { width: 100%; min-height: 48px; max-height: 180px; resize: vertical; border-radius: 12px; border: 1px solid var(--border); background: #12121a; color: #fff; padding: 12px 14px; font-family: inherit; font-size: 1rem; }
-    .send-btn { padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border); background: #35354a; color: #fff; font-weight: 600; cursor: pointer; }
-    .send-btn:hover { background: #414161; }
-
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 1px, 1px); border: 0; white-space: nowrap; }
-  </style>
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet"/>
 </head>
 <body>
-  <div id="statusbar" role="status" aria-live="polite"></div>
+    <header>
+      <h1>ohmai</h1>
+      <p class="lead">AI & Automation by <strong>Ohm</strong> — Generative AI • n8n • no‑code/low‑code.</p>
+      <a class="cta" href="#subscribe">ติดตามอัปเดต</a>
+    </header>
 
-  <header>
-    <h1>AI Chatbot Demo</h1>
-    <p class="lead">หน้านี้ใช้สำหรับทดสอบและสาธิตการทำงานของ AI Chatbot หลายตัว</p>
-  </header>
-
-  <!-- Bot selections -->
-  <section class="bots" id="botButtons"></section>
-
-  <section class="grid">
-    <div class="card">
-      <h3>วัตถุประสงค์</h3>
-      <p>เพจนี้ใช้สำหรับทดสอบระบบ AI Chatbot และแสดงตัวอย่างการโต้ตอบ เพื่อให้ผู้ใช้งานหรือผู้บริหารเข้าใจรูปแบบการทำงานจริง</p>
-    </div>
-    <div class="card">
-      <h3>สิ่งที่สามารถทดสอบได้</h3>
-      <ul>
-        <li>ถาม-ตอบ ข้อมูลบริการ/ผลิตภัณฑ์</li>
-        <li>ดูตัวอย่าง Workflow อัตโนมัติ</li>
-        <li>ทดสอบประสบการณ์ใช้งานจริงของผู้ใช้</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>หมายเหตุ</h3>
-      <p>เพจนี้เป็นเพียงการสาธิต (Demo) ไม่ใช่ระบบใช้งานจริง</p>
-    </div>
-  </section>
-
-  <footer>© <span id="y"></span> AI Chatbot Demo — Built on Render</footer>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
-
-  <!-- Custom Chat Widget (no external libs) -->
-  <div class="chat-overlay" id="chatOverlay" aria-hidden="true">
-    <div class="chat-panel" role="dialog" aria-labelledby="chatTitle">
-      <div class="chat-header">
-        <div class="chat-title" id="chatTitle">AI Chatbot</div>
-        <button class="chat-close" id="chatClose" aria-label="Close chat">ปิด</button>
+    <section class="grid">
+      <div class="card">
+        <h3>เป้าหมาย</h3>
+        <p>แชร์วิธีใช้ AI และ n8n แบบ <em>ผู้ใช้จริง</em> ไม่ต้องเป็นนักพัฒนา ก็ทำระบบอัตโนมัติได้</p>
       </div>
-      <div class="chat-body" id="chatBody" aria-live="polite"></div>
-      <div class="chat-input">
-        <label class="sr-only" for="chatInput">พิมพ์ข้อความ</label>
-        <textarea id="chatInput" placeholder="พิมพ์ข้อความ... (Enter = ส่ง, Shift+Enter = ขึ้นบรรทัดใหม่)"></textarea>
-        <button class="send-btn" id="sendBtn">ส่ง</button>
+      <div class="card">
+        <h3>คอนเทนต์ตัวอย่าง</h3>
+        <ul>
+          <li>Workflow: ตอบแชทลูกค้าอัตโนมัติจาก Google Sheets</li>
+          <li>Prompt Kit: สร้างไอเดียคอนเทนต์ด้วย GenAI</li>
+          <li>Automation: ส่งรายงานรายวันเข้า LINE</li>
+        </ul>
       </div>
-    </div>
-  </div>
+      <div class="card">
+        <h3 id="subscribe">ติดตาม</h3>
+        <p>วางลิงก์ YouTube / TikTok / Facebook หรือฟอร์มอีเมลที่นี่</p>
+      </div>
+    </section>
 
-  <script>
-    // ====== CONFIG (add/remove bots here) ======
-    const BOTS = [
-      { id: 'bot01', label: 'AI Chatbot 01', endpoint: 'https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat', desc: 'ตัวอย่างบอท 01', method: 'POST', headers: { 'Content-Type': 'application/json' }, payloadKey: 'message' },
-      { id: 'bot02', label: 'AI Chatbot 02', endpoint: 'https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat', desc: 'ตัวอย่างบอท 02', method: 'POST', headers: { 'Content-Type': 'application/json' }, payloadKey: 'message' },
-      // เพิ่มได้สูงสุดตามต้องการ เช่น bot03...bot05
-    ];
+    <footer>© <span id="y"></span> ohmai.me — Built on Render</footer>
+    <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 
-    // Map user text -> payload per bot (แก้ให้ตรงกับ backend ของคุณได้)
-    function buildPayload(bot, text) {
-      // รองรับ 2 แบบ: (1) payloadBuilder เฉพาะของบอท (2) payloadKey มาตรฐาน
-      if (typeof bot.payloadBuilder === 'function') {
-        return bot.payloadBuilder(text, bot);
-      }
-      const key = bot.payloadKey || 'message';
-      const base = {}; base[key] = text; // { message: text } หรือ { text: text }
-      return { botId: bot.id, ts: Date.now(), ...base };
-    };
-    }
+    <script type="module">
+      import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
 
-    // ====== Utilities ======
-    const $ = (sel) => document.querySelector(sel);
-    const statusEl = $('#statusbar');
-    function setStatus(type, msg) {
-      statusEl.className = '';
-      if (type) statusEl.classList.add(type);
-      statusEl.textContent = msg || '';
-    }
-    function isValidUrl(url){ try { new URL(url); return true; } catch { return false; } }
-
-    // ====== Render bot buttons ======
-    const botButtonsEl = document.getElementById('botButtons');
-    botButtonsEl.innerHTML = BOTS.map(b => `
-      <button class="bot-btn" data-bot="${b.id}">
-        <span>${b.label}</span>
-        <span class="bot-badge">${b.desc || ''}</span>
-      </button>
-    `).join('');
-
-    // ====== Chat widget (state) ======
-    const overlay = $('#chatOverlay');
-    const bodyEl = $('#chatBody');
-    const inputEl = $('#chatInput');
-    const titleEl = $('#chatTitle');
-
-    let activeBot = null;
-    let history = []; // {role:'user'|'bot'|'sys', text}
-
-    function openChat(bot){
-      activeBot = bot;
-      titleEl.textContent = bot.label;
-      overlay.classList.add('show');
-      overlay.setAttribute('aria-hidden', 'false');
-      inputEl.focus();
-      history = []; bodyEl.innerHTML = '';
-      pushMessage('sys', `เริ่มการสนทนากับ ${bot.label}`);
-    }
-    function closeChat(){ overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); }
-
-    function pushMessage(role, text){
-      history.push({ role, text });
-      const div = document.createElement('div');
-      div.className = `msg ${role}`;
-      div.textContent = text;
-      bodyEl.appendChild(div);
-      bodyEl.scrollTop = bodyEl.scrollHeight;
-    }
-
-    async function sendMessage(){
-      const text = (inputEl.value || '').trim();
-      if (!text) return;
-      const bot = activeBot; if (!bot) return;
-      pushMessage('user', text);
-      inputEl.value = '';
-
-      // call backend
-      try {
-        const resp = await fetch(bot.endpoint, {
-          method: bot.method || 'POST',
-          headers: bot.headers || { 'Content-Type': 'application/json' },
-          body: JSON.stringify(buildPayload(bot, text)),
-          mode: 'cors',
-          credentials: 'omit'
-        });
-        if (!resp.ok) {
-          let errText = '';
-          try { errText = await resp.text(); } catch {}
-          pushMessage('bot', `ขออภัย เกิดข้อผิดพลาดจากเซิร์ฟเวอร์ (${resp.status}) ${errText ? '
-' + errText : ''}`);
-          setStatus('warn', '⚠️ backend ตอบไม่สำเร็จ');
-          return;
-        }
-        let data = null;
-        try { data = await resp.json(); }
-        catch { data = await resp.text(); }
-        const reply = typeof data === 'string' ? data : (data.reply || data.message || JSON.stringify(data));
-        pushMessage('bot', String(reply));
-        setStatus('ok', 'พร้อมใช้งาน');
-      } catch (e) {
-        pushMessage('bot', 'เชื่อมต่อไม่สำเร็จ (ตรวจสอบ CORS/เครือข่าย/webhook)');
-        setStatus('warn', '⚠️ เชื่อมต่อไม่ได้');
-      }
-    }
-
-    // ====== Bindings ======
-    botButtonsEl.addEventListener('click', (e)=>{
-      const btn = e.target.closest('[data-bot]');
-      if (!btn) return;
-      const bot = BOTS.find(b => b.id === btn.dataset.bot);
-      if (!bot) return;
-      if (!isValidUrl(bot.endpoint)) { setStatus('err','Webhook URL ไม่ถูกต้อง'); return; }
-      setStatus('', '');
-      openChat(bot);
-    });
-    document.getElementById('sendBtn').addEventListener('click', sendMessage);
-    document.getElementById('chatClose').addEventListener('click', closeChat);
-    inputEl.addEventListener('keydown', (e)=>{
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-    });
-
-    // ====== Mini Tests (keep adding as needed) ======
-    (function runTests(){
-      const tests = [];
-      tests.push(() => Array.isArray(BOTS) && BOTS.length >= 2); // at least two bots
-      tests.push(() => BOTS.every(b => typeof b.id === 'string' && b.id));
-      tests.push(() => BOTS.every(b => isValidUrl(b.endpoint))); // endpoints look like URLs
-      tests.push(() => typeof buildPayload(BOTS[0], 'hi') === 'object');
-      tests.push(() => { const p = buildPayload(BOTS[0], ''); return p && typeof p === 'object'; });
-      tests.push(() => BOTS.every(b => !b.headers || typeof b.headers === 'object')); // headers shape
-      tests.push(() => BOTS.every(b => !b.method || typeof b.method === 'string')); // method shape
-      console.group('%c[Demo Tests]', 'color:'+getComputedStyle(document.documentElement).getPropertyValue('--accent'));
-      tests.forEach((fn,i)=>{ try{ const ok=!!fn(); console[ok?'log':'error'](`#${i+1} ${ok?'PASS':'FAIL'}`);}catch(e){console.error(`#${i+1} ERROR`,e);} });
-      console.groupEnd();
-    })();
-  </script>
+      createChat({
+        webhookUrl: "https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat",
+        initialMessages: [
+          "Welcome!",
+          "I’m here to help you explore our IR website packages and services.",
+          "How may I assist you today?",
+        ],
+        i18n: {
+          en: {
+            title: "This is a Demo AI Chatbot",
+            subtitle: "IR Website Solutions",
+            inputPlaceholder: "Test it by asking about package details.",
+          },
+        },
+      });
+    </script>
 </body>
 </html>
