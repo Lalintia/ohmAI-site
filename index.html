@@ -32,26 +32,34 @@
       line-height: 1.6;
     }
 
-    header { padding: 80px 24px 40px; text-align: center; }
-    h1 { font-size: 52px; font-weight: 700; margin: 0 0 16px; letter-spacing: 1px; background: -webkit-linear-gradient(45deg, #ffffff, #9ecbff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .lead { margin: 0; opacity: .8; font-size: 1.1rem; }
+    header { padding: 72px 24px 24px; text-align: center; }
+    h1 { font-size: 48px; font-weight: 700; margin: 0 0 12px; letter-spacing: .5px; background: -webkit-linear-gradient(45deg, #ffffff, #9ecbff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .lead { margin: 0; opacity: .85; font-size: 1.05rem; }
 
-    .cta { margin: 32px auto 0; display: inline-block; padding: 14px 24px; border-radius: 12px; background: #4a4a6a; color: #fff; font-weight: 600; text-decoration: none; transition: transform .2s ease, background .2s ease; }
-    .cta:hover { transform: scale(1.05); background: #5a5a8a; }
+    .cta { margin: 28px auto 0; display: inline-block; padding: 12px 20px; border-radius: 12px; background: #4a4a6a; color: #fff; font-weight: 600; text-decoration: none; transition: transform .2s ease, background .2s ease; }
+    .cta:hover { transform: translateY(-1px); background: #5a5a8a; }
 
-    .grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); padding: 28px; max-width: 1000px; margin: 0 auto; }
-    .card { background: rgba(21,21,29,.6); border: 1px solid #2a2a3f; border-radius: 16px; padding: 24px; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,.2); }
-    .card h3 { margin: 0 0 12px; font-size: 1.25rem; font-weight: 600; color: #fff; }
+    .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); padding: 24px; max-width: 1000px; margin: 0 auto; }
+    .card { background: rgba(21,21,29,.6); border: 1px solid #2a2a3f; border-radius: 16px; padding: 20px; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,.2); }
+    .card h3 { margin: 0 0 10px; font-size: 1.2rem; font-weight: 600; color: #fff; }
 
-    footer { text-align: center; padding: 40px 12px 56px; opacity: .6; }
+    footer { text-align: center; padding: 32px 12px 48px; opacity: .6; }
     a { color: #9ecbff; text-decoration: none; }
     a:hover { text-decoration: underline; }
+
+    /* Status bar */
+    #statusbar { box-sizing: border-box; width: 100%; padding: 10px 14px; background: rgba(20, 20, 30, .7); border-bottom: 1px solid #2a2a3f; display: none; }
+    #statusbar.ok { display: block; color: #9ef59e; }
+    #statusbar.warn { display: block; color: #ffd27a; }
+    #statusbar.err { display: block; color: #ff9e9e; }
   </style>
 
   <!-- n8n chat styles (pinned version) -->
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat@0.27.1/dist/style.css" rel="stylesheet"/>
 </head>
 <body>
+  <div id="statusbar" role="status" aria-live="polite"></div>
+
   <header>
     <h1>AI Chatbot Demo</h1>
     <p class="lead">หน้านี้ถูกสร้างขึ้นเพื่อทดสอบและสาธิตการทำงานของระบบ AI Chatbot</p>
@@ -77,52 +85,145 @@
     </div>
   </section>
 
-  <footer>© <span id="y"></span> AI Chatbot Demo </footer>
+  <footer>© <span id="y"></span> AI Chatbot Demo — Built on Render</footer>
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 
   <script type="module">
     import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat@0.27.1/dist/chat.bundle.es.js';
 
-    // สร้างแชท (float button ขวาล่าง)
-    const chat = createChat({
-      webhookUrl: 'https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat',
-      initialMessages: [
-        'ยินดีต้อนรับสู่ AI Chatbot Demo!',
-        'คุณสามารถลองสอบถามข้อมูล หรือตัวอย่างบริการได้ที่นี่.',
-        'เริ่มต้นพิมพ์ข้อความเพื่อทดสอบการโต้ตอบ',
-      ],
-      i18n: {
-        th: {
-          title: 'นี่คือ Chatbot ทดสอบ',
-          subtitle: 'เดโมสำหรับลูกค้าหรือผู้บริหาร',
-          inputPlaceholder: 'พิมพ์ข้อความเพื่อทดสอบ...',
-        },
-      },
-      defaultLanguage: 'th',
-    });
+    // ====== CONFIG ======
+    const WEBHOOK_URL = 'https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat';
+    const CONNECT_TIMEOUT_MS = 7000;
 
-    // ฟังก์ชันเปิด popup แชทเมื่อกดปุ่ม CTA
-    function openChatPopup() {
-      // 1) ถ้าไลบรารีมีเมธอด open ให้เรียกใช้
-      if (chat && typeof chat.open === 'function') {
-        chat.open();
-        return;
-      }
-      // 2) ถ้าไม่มี ให้พยายามคลิกปุ่ม toggle ของวิดเจ็ต
-      const possibleSelectors = [
-        'button[aria-label="Open chat"]',
-        '.n8n-chat-button',
-        '.n8n-chat__toggle',
-      ];
-      for (const sel of possibleSelectors) {
-        const btn = document.querySelector(sel);
-        if (btn) { btn.click(); return; }
+    // ====== Helpers (Validation & Diagnostics) ======
+    const statusEl = document.getElementById('statusbar');
+    function setStatus(type, msg) {
+      statusEl.className = '';
+      if (type === 'ok') statusEl.classList.add('ok');
+      else if (type === 'warn') statusEl.classList.add('warn');
+      else statusEl.classList.add('err');
+      statusEl.textContent = msg;
+    }
+
+    function validateWebhookUrl(url) {
+      try {
+        const u = new URL(url);
+        return { ok: true, protocol: u.protocol.replace(':', ''), host: u.host };
+      } catch (e) {
+        return { ok: false, error: 'Invalid URL format' };
       }
     }
 
-    // bind ปุ่ม CTA
-    const cta = document.getElementById('cta-open-chat');
-    cta.addEventListener('click', (e) => { e.preventDefault(); openChatPopup(); });
+    function isMixedContent(pageProtocol, targetProtocol) {
+      return pageProtocol === 'https' && targetProtocol === 'http';
+    }
+
+    async function pingWebhook(url, timeoutMs) {
+      const ctrl = new AbortController();
+      const id = setTimeout(() => ctrl.abort('timeout'), timeoutMs);
+      // NOTE: We treat any HTTP response (2xx/4xx/5xx) as "reachable"; only network/CORS/timeout counts as unreachable.
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Demo-Healthcheck': '1' },
+        body: JSON.stringify({ __healthcheck: true, ts: Date.now() }),
+        mode: 'cors',
+        credentials: 'omit',
+        signal: ctrl.signal,
+      });
+      clearTimeout(id);
+      return resp.ok || !resp.type || typeof resp.status === 'number';
+    }
+
+    // ====== Lightweight Test Cases (console) ======
+    (function runTests() {
+      const tests = [];
+      // validateWebhookUrl
+      tests.push(() => {
+        const v = validateWebhookUrl(WEBHOOK_URL); return v.ok === true; });
+      tests.push(() => {
+        const v = validateWebhookUrl('not a url'); return v.ok === false; });
+      // isMixedContent
+      tests.push(() => isMixedContent('https', 'http') === true);
+      tests.push(() => isMixedContent('https', 'https') === false);
+      tests.push(() => isMixedContent('http', 'https') === false);
+
+      console.group('%c[Demo Tests]', 'color:#9ecbff');
+      tests.forEach((fn, i) => {
+        try { const ok = !!fn(); console[ok ? 'log' : 'error'](`#${i+1} ${ok ? 'PASS' : 'FAIL'}`); }
+        catch (e) { console.error(`#${i+1} ERROR`, e); }
+      });
+      console.groupEnd();
+    })();
+
+    // ====== Connectivity Guard ======
+    async function ensureConnectivityAndInitChat() {
+      const pageProtocol = location.protocol.replace(':', '');
+      const val = validateWebhookUrl(WEBHOOK_URL);
+      if (!val.ok) {
+        setStatus('err', '❌ Webhook URL ไม่ถูกต้อง: กรุณาตรวจสอบค่า WEBHOOK_URL');
+        return null;
+      }
+      if (isMixedContent(pageProtocol, val.protocol)) {
+        setStatus('err', '❌ Mixed Content: หน้าเว็บเป็น HTTPS แต่ webhook เป็น HTTP — เบราว์เซอร์จะบล็อก');
+        return null;
+      }
+
+      try {
+        await pingWebhook(WEBHOOK_URL, CONNECT_TIMEOUT_MS);
+        setStatus('ok', '✅ เชื่อมต่อ backend ได้ (พร้อมใช้งาน)');
+      } catch (e) {
+        setStatus('warn', '⚠️ เชื่อมต่อ backend ไม่ได้ตอนโหลดหน้า (อาจเป็น CORS/เน็ตเวิร์ก/เซิร์ฟเวอร์): ระบบจะลองต่อเมื่อเปิดแชต');
+      }
+
+      // Create chat widget regardless — เผื่อครั้งถัดไป/ผู้ใช้กดเปิดแล้วสำเร็จ
+      try {
+        const instance = createChat({
+          webhookUrl: WEBHOOK_URL,
+          initialMessages: [
+            'ยินดีต้อนรับสู่ AI Chatbot Demo!',
+            'คุณสามารถลองสอบถามข้อมูล หรือตัวอย่างบริการได้ที่นี่.',
+            'เริ่มต้นพิมพ์ข้อความเพื่อทดสอบการโต้ตอบ',
+          ],
+          i18n: {
+            th: {
+              title: 'นี่คือ Chatbot ทดสอบ',
+              subtitle: 'เดโมสำหรับลูกค้าหรือผู้บริหาร',
+              inputPlaceholder: 'พิมพ์ข้อความเพื่อทดสอบ...',
+            },
+          },
+          defaultLanguage: 'th',
+        });
+        return instance;
+      } catch (e) {
+        setStatus('err', '❌ สร้างวิดเจ็ตไม่สำเร็จ: ' + (e?.message || e));
+        return null;
+      }
+    }
+
+    // ====== Global error guards (prevent uncaught errors) ======
+    window.addEventListener('unhandledrejection', (event) => {
+      if (String(event.reason).includes('Failed to fetch')) {
+        setStatus('warn', '⚠️ ไม่สามารถติดต่อ webhook (Failed to fetch). โปรดตรวจสอบ URL, CORS หรือสถานะเซิร์ฟเวอร์');
+        event.preventDefault();
+      }
+    });
+    window.addEventListener('error', (event) => {
+      if (String(event.message).includes('Failed to fetch')) {
+        setStatus('warn', '⚠️ ไม่สามารถติดต่อ webhook (Failed to fetch).');
+      }
+    });
+
+    // ====== Init ======
+    const chat = await ensureConnectivityAndInitChat();
+
+    // CTA: open popup chat
+    function openChatPopup() {
+      if (chat && typeof chat.open === 'function') { chat.open(); return; }
+      const possibleSelectors = [ 'button[aria-label="Open chat"]', '.n8n-chat-button', '.n8n-chat__toggle' ];
+      for (const sel of possibleSelectors) { const btn = document.querySelector(sel); if (btn) { btn.click(); return; } }
+      setStatus('warn', '⚠️ ไม่พบปุ่มเปิดแชตจากวิดเจ็ต');
+    }
+    document.getElementById('cta-open-chat').addEventListener('click', (e) => { e.preventDefault(); openChatPopup(); });
   </script>
 </body>
 </html>
