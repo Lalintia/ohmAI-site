@@ -124,14 +124,21 @@
   <script>
     // ====== CONFIG (add/remove bots here) ======
     const BOTS = [
-      { id: 'bot01', label: 'AI Chatbot 01', endpoint: 'https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat', desc: 'ตัวอย่างบอท 01' },
-      { id: 'bot02', label: 'AI Chatbot 02', endpoint: 'https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat', desc: 'ตัวอย่างบอท 02' },
+      { id: 'bot01', label: 'AI Chatbot 01', endpoint: 'https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat', desc: 'ตัวอย่างบอท 01', method: 'POST', headers: { 'Content-Type': 'application/json' }, payloadKey: 'message' },
+      { id: 'bot02', label: 'AI Chatbot 02', endpoint: 'https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat', desc: 'ตัวอย่างบอท 02', method: 'POST', headers: { 'Content-Type': 'application/json' }, payloadKey: 'message' },
       // เพิ่มได้สูงสุดตามต้องการ เช่น bot03...bot05
     ];
 
     // Map user text -> payload per bot (แก้ให้ตรงกับ backend ของคุณได้)
     function buildPayload(bot, text) {
-      return { botId: bot.id, message: text, ts: Date.now() };
+      // รองรับ 2 แบบ: (1) payloadBuilder เฉพาะของบอท (2) payloadKey มาตรฐาน
+      if (typeof bot.payloadBuilder === 'function') {
+        return bot.payloadBuilder(text, bot);
+      }
+      const key = bot.payloadKey || 'message';
+      const base = {}; base[key] = text; // { message: text } หรือ { text: text }
+      return { botId: bot.id, ts: Date.now(), ...base };
+    };
     }
 
     // ====== Utilities ======
@@ -192,14 +199,17 @@
       // call backend
       try {
         const resp = await fetch(bot.endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: bot.method || 'POST',
+          headers: bot.headers || { 'Content-Type': 'application/json' },
           body: JSON.stringify(buildPayload(bot, text)),
           mode: 'cors',
           credentials: 'omit'
         });
         if (!resp.ok) {
-          pushMessage('bot', `ขออภัย เกิดข้อผิดพลาดจากเซิร์ฟเวอร์ (${resp.status})`);
+          let errText = '';
+          try { errText = await resp.text(); } catch {}
+          pushMessage('bot', `ขออภัย เกิดข้อผิดพลาดจากเซิร์ฟเวอร์ (${resp.status}) ${errText ? '
+' + errText : ''}`);
           setStatus('warn', '⚠️ backend ตอบไม่สำเร็จ');
           return;
         }
@@ -239,6 +249,8 @@
       tests.push(() => BOTS.every(b => isValidUrl(b.endpoint))); // endpoints look like URLs
       tests.push(() => typeof buildPayload(BOTS[0], 'hi') === 'object');
       tests.push(() => { const p = buildPayload(BOTS[0], ''); return p && typeof p === 'object'; });
+      tests.push(() => BOTS.every(b => !b.headers || typeof b.headers === 'object')); // headers shape
+      tests.push(() => BOTS.every(b => !b.method || typeof b.method === 'string')); // method shape
       console.group('%c[Demo Tests]', 'color:'+getComputedStyle(document.documentElement).getPropertyValue('--accent'));
       tests.forEach((fn,i)=>{ try{ const ok=!!fn(); console[ok?'log':'error'](`#${i+1} ${ok?'PASS':'FAIL'}`);}catch(e){console.error(`#${i+1} ERROR`,e);} });
       console.groupEnd();
