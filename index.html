@@ -138,10 +138,8 @@
     (function runTests() {
       const tests = [];
       // validateWebhookUrl
-      tests.push(() => {
-        const v = validateWebhookUrl(WEBHOOK_URL); return v.ok === true; });
-      tests.push(() => {
-        const v = validateWebhookUrl('not a url'); return v.ok === false; });
+      tests.push(() => { const v = validateWebhookUrl(WEBHOOK_URL); return v.ok === true; });
+      tests.push(() => { const v = validateWebhookUrl('not a url'); return v.ok === false; });
       // isMixedContent
       tests.push(() => isMixedContent('https', 'http') === true);
       tests.push(() => isMixedContent('https', 'https') === false);
@@ -193,6 +191,8 @@
           },
           defaultLanguage: 'th',
         });
+        // expose instance for external use
+        window.n8nChat = instance;
         return instance;
       } catch (e) {
         setStatus('err', '❌ สร้างวิดเจ็ตไม่สำเร็จ: ' + (e?.message || e));
@@ -216,14 +216,24 @@
     // ====== Init ======
     const chat = await ensureConnectivityAndInitChat();
 
-    // CTA: open popup chat
-    function openChatPopup() {
+    // CTA: open popup chat (center button)
+    function openChatNow() {
       if (chat && typeof chat.open === 'function') { chat.open(); return; }
-      const possibleSelectors = [ 'button[aria-label="Open chat"]', '.n8n-chat-button', '.n8n-chat__toggle' ];
-      for (const sel of possibleSelectors) { const btn = document.querySelector(sel); if (btn) { btn.click(); return; } }
-      setStatus('warn', '⚠️ ไม่พบปุ่มเปิดแชตจากวิดเจ็ต');
+      if (chat && typeof chat.toggle === 'function') { try { chat.toggle(true); return; } catch(e){} }
+      if (window.n8nChat && typeof window.n8nChat.open === 'function') { window.n8nChat.open(); return; }
+      const host = document.querySelector('n8n-chat, .n8n-chat');
+      if (host && host.shadowRoot) {
+        const candidates = host.shadowRoot.querySelectorAll('button,[role="button"]');
+        for (const el of candidates) { if ((el.ariaLabel||'').toLowerCase().includes('open')) { el.click(); return; } }
+      }
+      const btn = document.querySelector('[aria-label="Open chat"], .n8n-chat-button, .n8n-chat__toggle');
+      if (btn) btn.click();
     }
-    document.getElementById('cta-open-chat').addEventListener('click', (e) => { e.preventDefault(); openChatPopup(); });
+
+    document.getElementById('cta-open-chat').addEventListener('click', (e) => {
+      e.preventDefault();
+      openChatNow();
+    });
   </script>
 </body>
 </html>
