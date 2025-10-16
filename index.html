@@ -420,7 +420,21 @@
 
           if (response.ok) {
             const data = await response.json();
-            const botReply = data.output || data.message || 'ขอโทษครับ ไม่สามารถประมวลผลได้';
+            console.log("Response from webhook:", data);
+            
+            // ดึง text จาก response
+            let botReply = '';
+            if (data.text) {
+              botReply = data.text;
+            } else if (data.output) {
+              botReply = data.output;
+            } else if (data.message) {
+              botReply = data.message;
+            } else if (typeof data === 'string') {
+              botReply = data;
+            } else {
+              botReply = 'ขอโทษครับ ไม่สามารถประมวลผลได้';
+            }
             
             const botMsg = document.createElement('div');
             botMsg.className = 'message bot';
