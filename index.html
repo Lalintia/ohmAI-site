@@ -138,18 +138,13 @@
       <div class="card">
         <h3>สิ่งที่สามารถทดสอบได้</h3>
         <ul>
-          <li>ถาม-ตอบ ข้อมูลต่าง ๆ </li>
+          <li>ถาม-ตอบ ข้อมูลยุทธศาสตร์</li>
           <li>ทดสอบประสบการณ์ใช้งานจริงของผู้ใช้</li>
         </ul>
       </div>
       <div class="card">
-        <h3>เลือก Chatbot</h3>
-        <p>เลือก Chatbot ที่คุณต้องการทดสอบจากรายการด้านล่าง:</p>
-        <select id="chatbot-selector" style="width: 100%; padding: 10px; border-radius: 8px; background-color: #2a2a3f; color: #e6e6f0; border: 1px solid #4a4a6a;">
-          <option value="">-- กรุณาเลือก Chatbot --</option>
-          <option value="https://dev.ohmai.me/webhook/3832d42e-759a-4ede-a60e-1c5b0cc139ce/chat">Chatbot A (Investor Relations)</option>
-          <option value="https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat">Chatbot B (Strategiest)</option>
-        </select>
+        <h3 id="subscribe">หมายเหตุ</h3>
+        <p>เพจนี้เป็นเพียงการสาธิต (Demo) ไม่ใช่ระบบใช้งานจริง</p>
       </div>
     </section>
 
@@ -159,83 +154,20 @@
     <script type="module">
       import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
 
-      // 1. กำหนดค่าเริ่มต้นของ Chatbot แต่ละตัว
-      const chatbotConfigs = {
-        // Config สำหรับ Chatbot A
-        "https://dev.ohmai.me/webhook/3832d42e-759a-4ede-a60e-1c5b0cc139ce/chat": {
-          webhookUrl: "https://dev.ohmai.me/webhook/3832d42e-759a-4ede-a60e-1c5b0cc139ce/chat",
-          initialMessages: [
-            "ยินดีต้อนรับสู่ Chatbot A (ยุทธศาสตร์)!",
-            "คุณสามารถสอบถามข้อมูลด้านยุทธศาสตร์ได้ที่นี่",
-          ],
-          i18n: {
-            th: {
-              title: "Chatbot A (ยุทธศาสตร์)",
-              subtitle: "เดโมสำหรับลูกค้า",
-              inputPlaceholder: "พิมพ์คำถามเกี่ยวกับยุทธศาสตร์...",
-            },
+      createChat({
+        webhookUrl: "https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat",
+        initialMessages: [
+          "ยินดีต้อนรับสู่ AI Chatbot Demo!",
+          "คุณสามารถลองสอบถามข้อมูลได้ที่นี่.",
+          "เริ่มต้นพิมพ์ข้อความเพื่อทดสอบ",
+        ],
+        i18n: {
+          th: {
+            title: "นี่คือ Chatbot ทดสอบ",
+            subtitle: "เดโมสำหรับลูกค้า",
+            inputPlaceholder: "พิมพ์ข้อความเพื่อทดสอบ...",
           },
         },
-        // Config สำหรับ Chatbot B
-        "YOUR_WEBHOOK_URL_FOR_CHATBOT_B": {
-          webhookUrl: "YOUR_WEBHOOK_URL_FOR_CHATBOT_B",
-          initialMessages: [
-            "สวัสดีครับ! นี่คือ Chatbot B (ทั่วไป)",
-            "มีอะไรให้ช่วย สามารถถามได้เลย",
-          ],
-          i18n: {
-            th: {
-              title: "Chatbot B (ทั่วไป)",
-              subtitle: "เดโมสำหรับลูกค้า",
-              inputPlaceholder: "พิมพ์ข้อความเพื่อทดสอบ...",
-            },
-          },
-        },
-        // เพิ่ม Config สำหรับ Chatbot C หรืออื่นๆ ที่นี่
-        "YOUR_WEBHOOK_URL_FOR_CHATBOT_C": {
-          webhookUrl: "YOUR_WEBHOOK_URL_FOR_CHATBOT_C",
-          initialMessages: [
-            "สวัสดีครับ! นี่คือ Chatbot C",
-          ],
-          i18n: {
-            th: {
-              title: "Chatbot C",
-              subtitle: "เดโมสำหรับลูกค้า",
-              inputPlaceholder: "พิมพ์ข้อความ...",
-            },
-          },
-        }
-      };
-
-      // 2. ดึง Element ของเมนู Dropdown
-      const selector = document.getElementById('chatbot-selector');
-      let currentChatInstance = null; // ตัวแปรสำหรับเก็บ Chat instance ปัจจุบัน
-
-      // 3. สร้างฟังก์ชันสำหรับเริ่มต้น Chatbot
-      function initializeChat(config) {
-        // ถ้ามี Chatbot เก่าเปิดอยู่ ให้ทำลายทิ้งก่อน
-        if (currentChatInstance) {
-          currentChatInstance.destroy();
-        }
-        // สร้าง Chatbot ใหม่ตาม config ที่เลือก และเก็บ instance ไว้
-        currentChatInstance = createChat(config);
-      }
-
-      // 4. สร้าง Event Listener เพื่อรอการเปลี่ยนแปลงจากเมนู
-      selector.addEventListener('change', (event) => {
-        const selectedWebhookUrl = event.target.value;
-
-        // ถ้าผู้ใช้เลือก Chatbot (ไม่ใช่ตัวเลือก '-- กรุณาเลือก --')
-        if (selectedWebhookUrl && chatbotConfigs[selectedWebhookUrl]) {
-          const selectedConfig = chatbotConfigs[selectedWebhookUrl];
-          initializeChat(selectedConfig);
-        } else {
-          // ถ้าผู้ใช้เลือกกลับไปที่ '-- กรุณาเลือก --' ให้ปิด Chatbot ไปเลย
-          if (currentChatInstance) {
-            currentChatInstance.destroy();
-            currentChatInstance = null;
-          }
-        }
       });
     </script>
 </body>
