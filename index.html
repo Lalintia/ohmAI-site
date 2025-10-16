@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-      /* --- การตั้งค่าหลัก & ดีไซน์พื้นหลัง --- */
       :root { 
         font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Thai", "Noto Sans", sans-serif; 
       }
@@ -24,7 +23,6 @@
         line-height: 1.6;
       }
       
-      /* --- ส่วน Header & Title --- */
       header { 
         padding: 80px 24px 40px; 
         text-align: center; 
@@ -44,24 +42,6 @@
         font-size: 1.1rem;
       }
 
-      /* --- ปุ่ม Call-to-Action --- */
-      .cta { 
-        margin: 32px auto 0; 
-        display: inline-block; 
-        padding: 14px 24px; 
-        border-radius: 12px; 
-        background: #4a4a6a; 
-        text-decoration: none; 
-        color: #ffffff;
-        font-weight: 600;
-        transition: transform 0.2s ease, background 0.2s ease;
-      }
-      .cta:hover {
-        transform: scale(1.05);
-        background: #5a5a8a;
-      }
-
-      /* --- Layout แบบ Grid & Card --- */
       .grid { 
         display: grid; 
         gap: 24px; 
@@ -93,8 +73,10 @@
         padding-left: 20px;
         margin: 0;
       }
+      .card p {
+        margin: 0;
+      }
 
-      /* --- ส่วน Footer & Links --- */
       footer { 
         text-align: center; 
         padding: 40px 12px 56px; 
@@ -107,135 +89,372 @@
       a:hover {
         text-decoration: underline;
       }
-      code { 
-        background:#0f0f17; 
-        border:1px solid #2a2a3f; 
-        padding: 2px 6px; 
-        border-radius: 6px;
+
+      .selector-section {
+        text-align: center;
+        padding: 40px 24px;
+        background: rgba(21, 21, 29, 0.3);
       }
 
-      /* --- ปรับ UX UI ของ Chat Input ให้เต็ม frame --- */
-      .n8n-chat .n8n-chat-input {
-        width: 100% !important;
-        font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Thai", sans-serif !important;
-        font-size: 1rem !important;
+      .selector-section h2 {
+        margin: 0 0 20px;
+        font-size: 1.5rem;
+      }
+
+      select {
+        padding: 12px 16px;
+        border-radius: 8px;
+        background-color: #2a2a3f;
+        color: #e6e6f0;
+        border: 1px solid #4a4a6a;
+        font-size: 1rem;
+        font-family: 'Sora', system-ui, sans-serif;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-width: 300px;
+      }
+
+      select:hover {
+        border-color: #9ecbff;
+        background-color: #323250;
+      }
+
+      select:focus {
+        outline: none;
+        border-color: #9ecbff;
+        box-shadow: 0 0 0 3px rgba(158, 203, 255, 0.1);
+      }
+
+      /* Chat Widget Styles */
+      .chat-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 400px;
+        height: 600px;
+        background: rgba(21, 21, 29, 0.95);
+        border: 1px solid #2a2a3f;
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        display: none;
+      }
+
+      .chat-widget.active {
+        display: flex;
+      }
+
+      .chat-header {
+        padding: 16px;
+        border-bottom: 1px solid #2a2a3f;
+        background: rgba(158, 203, 255, 0.1);
+        border-radius: 16px 16px 0 0;
+      }
+
+      .chat-header h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: #9ecbff;
+      }
+
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .message {
+        display: flex;
+        margin-bottom: 8px;
+        animation: slideIn 0.3s ease;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .message.bot {
+        justify-content: flex-start;
+      }
+
+      .message.user {
+        justify-content: flex-end;
+      }
+
+      .message-content {
+        max-width: 80%;
+        padding: 10px 14px;
+        border-radius: 10px;
+        word-wrap: break-word;
+        font-size: 0.95rem;
+        line-height: 1.4;
+      }
+
+      .message.bot .message-content {
+        background: #2a2a3f;
+        color: #e6e6f0;
+        border-bottom-left-radius: 2px;
+      }
+
+      .message.user .message-content {
+        background: #4a6a9a;
+        color: #ffffff;
+        border-bottom-right-radius: 2px;
+      }
+
+      .chat-input-area {
+        padding: 12px;
+        border-top: 1px solid #2a2a3f;
+        display: flex;
+        gap: 8px;
+      }
+
+      .chat-input {
+        flex: 1;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: #1a1a29;
+        border: 1px solid #4a4a6a;
+        color: #e6e6f0;
+        font-family: 'Sora', system-ui, sans-serif;
+        font-size: 0.95rem;
+      }
+
+      .chat-input:focus {
+        outline: none;
+        border-color: #9ecbff;
+        box-shadow: 0 0 0 2px rgba(158, 203, 255, 0.1);
+      }
+
+      .chat-send {
+        padding: 10px 16px;
+        border-radius: 8px;
+        background: #4a6a9a;
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.2s ease;
+      }
+
+      .chat-send:hover {
+        background: #5a7aaa;
+      }
+
+      .chat-send:disabled {
+        background: #3a4a6a;
+        cursor: not-allowed;
+      }
+
+      .loading {
+        display: flex;
+        gap: 4px;
+        padding: 10px 14px;
+      }
+
+      .loading span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #9ecbff;
+        animation: bounce 1.4s infinite;
+      }
+
+      .loading span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .loading span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes bounce {
+        0%, 80%, 100% { opacity: 0.3; }
+        40% { opacity: 1; }
+      }
+
+      @media (max-width: 480px) {
+        .chat-widget {
+          width: 100%;
+          height: 100%;
+          bottom: 0;
+          right: 0;
+          border-radius: 0;
+        }
       }
     </style>
-
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet"/>
 </head>
 <body>
     <header>
       <h1>AI Chatbot Demo</h1>
-      <p class="lead">เพจนี้ถูกสร้างขึ้นเพื่อทดสอบและสาธิตการทำงานของระบบ AI Chatbot</p>
+      <p class="lead">เพจนี้ถูกสร้างเพื่อทดสอบและสาธิตการทำงานของระบบ AI Chatbot</p>
     </header>
 
     <section class="grid">
       <div class="card">
-        <h3>วัตถุประสงค์</h3>
-        <p>เพจนี้ใช้สำหรับทดสอบระบบ AI Chatbot และแสดงตัวอย่างการโต้ตอบ เพื่อให้ผู้ใช้งานเข้าใจรูปแบบการทำงานจริง</p>
+        <h3>เกี่ยวกับ AI Chatbot</h3>
+        <p>ระบบนี้ช่วยให้คุณสามารถโต้ตอบกับ AI Chatbot ที่ได้รับการฝึกอบรมพิเศษสำหรับการตอบคำถามและให้บริการที่เกี่ยวข้องกับองค์กร</p>
       </div>
       <div class="card">
-        <h3>สิ่งที่สามารถทดสอบได้</h3>
+        <h3>Chatbot ที่มีอยู่</h3>
         <ul>
-          <li>ถาม-ตอบ ข้อมูลต่าง ๆ </li>
-          <li>ทดสอบประสบการณ์ใช้งานจริงของผู้ใช้</li>
+          <li><strong>Bot IR:</strong> ตอบข้อมูลเกี่ยวกับ Investor Relations</li>
+          <li><strong>Bot Strategist:</strong> ให้คำปรึกษาด้านกลยุทธศาสตร์ธุรกิจ</li>
         </ul>
       </div>
       <div class="card">
-        <h3>เลือก Chatbot</h3>
-        <p>เลือก Chatbot ที่คุณต้องการทดสอบจากรายการด้านล่าง:</p>
-        <select id="chatbot-selector" style="width: 100%; padding: 10px; border-radius: 8px; background-color: #2a2a3f; color: #e6e6f0; border: 1px solid #4a4a6a;">
-          <option value="">-- กรุณาเลือก Chatbot --</option>
-          <option value="https://dev.ohmai.me/webhook/3832d42e-759a-4ede-a60e-1c5b0cc139ce/chat">Chatbot A (Investor Relations)</option>
-          <option value="https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat">Chatbot B (Strategiest)</option>
-        </select>
+        <h3>วิธีการใช้</h3>
+        <p>เลือก Chatbot ที่ต้องการจากเมนูด้านล่าง หน้าต่างแชตจะปรากฏด้านล่างขวาของหน้าจอ พร้อมที่จะตอบคำถามของคุณ</p>
       </div>
+    </section>
+
+    <section class="selector-section">
+      <h2>เลือก Chatbot เพื่อเริ่มทดสอบ</h2>
+      <select id="chatbot-selector">
+        <option value="">-- กรุณาเลือก Chatbot --</option>
+        <option value="bot-ir">💼 Bot IR (Investor Relations)</option>
+        <option value="bot-strategist">🎯 Bot Strategist (กลยุทธศาสตร์)</option>
+      </select>
     </section>
 
     <footer>© <span id="y"></span> AI Chatbot Demo </footer>
     <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 
-    <script type="module">
-      import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chat-widget">
+      <div class="chat-header">
+        <h3 id="chat-title">Bot IR</h3>
+      </div>
+      <div class="chat-messages" id="chat-messages"></div>
+      <div class="chat-input-area">
+        <input type="text" class="chat-input" id="chat-input" placeholder="พิมพ์คำถามของคุณ...">
+        <button class="chat-send" id="chat-send">ส่ง</button>
+      </div>
+    </div>
 
-      // 1. กำหนดค่าเริ่มต้นของ Chatbot แต่ละตัว
+    <script>
       const chatbotConfigs = {
-        // Config สำหรับ Chatbot A
-        "https://dev.ohmai.me/webhook/3832d42e-759a-4ede-a60e-1c5b0cc139ce/chat": {
+        "bot-ir": {
           webhookUrl: "https://dev.ohmai.me/webhook/3832d42e-759a-4ede-a60e-1c5b0cc139ce/chat",
-          initialMessages: [
-            "ยินดีต้อนรับสู่ Chatbot A (ยุทธศาสตร์)!",
-            "คุณสามารถสอบถามข้อมูลด้านยุทธศาสตร์ได้ที่นี่",
-          ],
-          i18n: {
-            th: {
-              title: "Chatbot A (ยุทธศาสตร์)",
-              subtitle: "เดโมสำหรับลูกค้า",
-              inputPlaceholder: "พิมพ์คำถามเกี่ยวกับยุทธศาสตร์...",
-            },
-          },
+          title: "💼 Bot IR (Investor Relations)",
         },
-        // Config สำหรับ Chatbot B
-        "YOUR_WEBHOOK_URL_FOR_CHATBOT_B": {
-          webhookUrl: "YOUR_WEBHOOK_URL_FOR_CHATBOT_B",
-          initialMessages: [
-            "สวัสดีครับ! นี่คือ Chatbot B (ทั่วไป)",
-            "มีอะไรให้ช่วย สามารถถามได้เลย",
-          ],
-          i18n: {
-            th: {
-              title: "Chatbot B (ทั่วไป)",
-              subtitle: "เดโมสำหรับลูกค้า",
-              inputPlaceholder: "พิมพ์ข้อความเพื่อทดสอบ...",
-            },
-          },
-        },
-        // เพิ่ม Config สำหรับ Chatbot C หรืออื่นๆ ที่นี่
-        "YOUR_WEBHOOK_URL_FOR_CHATBOT_C": {
-          webhookUrl: "YOUR_WEBHOOK_URL_FOR_CHATBOT_C",
-          initialMessages: [
-            "สวัสดีครับ! นี่คือ Chatbot C",
-          ],
-          i18n: {
-            th: {
-              title: "Chatbot C",
-              subtitle: "เดโมสำหรับลูกค้า",
-              inputPlaceholder: "พิมพ์ข้อความ...",
-            },
-          },
+        "bot-strategist": {
+          webhookUrl: "https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat",
+          title: "🎯 Bot Strategist (กลยุทธศาสตร์)",
         }
       };
 
-      // 2. ดึง Element ของเมนู Dropdown
       const selector = document.getElementById('chatbot-selector');
-      let currentChatInstance = null; // ตัวแปรสำหรับเก็บ Chat instance ปัจจุบัน
+      const chatWidget = document.getElementById('chat-widget');
+      const chatMessages = document.getElementById('chat-messages');
+      const chatInput = document.getElementById('chat-input');
+      const chatSend = document.getElementById('chat-send');
+      const chatTitle = document.getElementById('chat-title');
 
-      // 3. สร้างฟังก์ชันสำหรับเริ่มต้น Chatbot
-      function initializeChat(config) {
-        // ถ้ามี Chatbot เก่าเปิดอยู่ ให้ทำลายทิ้งก่อน
-        if (currentChatInstance) {
-          currentChatInstance.destroy();
+      let currentWebhookUrl = null;
+      let isLoading = false;
+
+      selector.addEventListener('change', (event) => {
+        const selectedBot = event.target.value;
+
+        if (selectedBot && chatbotConfigs[selectedBot]) {
+          const config = chatbotConfigs[selectedBot];
+          currentWebhookUrl = config.webhookUrl;
+          chatTitle.textContent = config.title;
+          chatMessages.innerHTML = '';
+          chatWidget.classList.add('active');
+          console.log("เลือก:", selectedBot, "webhook:", currentWebhookUrl);
+        } else {
+          chatWidget.classList.remove('active');
+          currentWebhookUrl = null;
         }
-        // สร้าง Chatbot ใหม่ตาม config ที่เลือก และเก็บ instance ไว้
-        currentChatInstance = createChat(config);
+      });
+
+      async function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message || isLoading || !currentWebhookUrl) return;
+
+        // Display user message
+        const userMsg = document.createElement('div');
+        userMsg.className = 'message user';
+        userMsg.innerHTML = `<div class="message-content">${escapeHtml(message)}</div>`;
+        chatMessages.appendChild(userMsg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        chatInput.value = '';
+        chatSend.disabled = true;
+        isLoading = true;
+
+        // Show loading indicator
+        const loadingMsg = document.createElement('div');
+        loadingMsg.className = 'message bot';
+        loadingMsg.innerHTML = '<div class="loading"><span></span><span></span><span></span></div>';
+        chatMessages.appendChild(loadingMsg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+          const response = await fetch(currentWebhookUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              chatInput: message,
+            }),
+          });
+
+          chatMessages.removeChild(loadingMsg);
+
+          if (response.ok) {
+            const data = await response.json();
+            const botReply = data.output || data.message || 'ขอโทษครับ ไม่สามารถประมวลผลได้';
+            
+            const botMsg = document.createElement('div');
+            botMsg.className = 'message bot';
+            botMsg.innerHTML = `<div class="message-content">${escapeHtml(botReply)}</div>`;
+            chatMessages.appendChild(botMsg);
+          } else {
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'message bot';
+            errorMsg.innerHTML = `<div class="message-content">ขออภัยครับ เกิดข้อผิดพลาด (${response.status})</div>`;
+            chatMessages.appendChild(errorMsg);
+          }
+        } catch (error) {
+          chatMessages.removeChild(loadingMsg);
+          const errorMsg = document.createElement('div');
+          errorMsg.className = 'message bot';
+          errorMsg.innerHTML = `<div class="message-content">ขออภัยครับ เชื่อมต่อไม่ได้</div>`;
+          chatMessages.appendChild(errorMsg);
+          console.error('Error:', error);
+        }
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        chatSend.disabled = false;
+        isLoading = false;
       }
 
-      // 4. สร้าง Event Listener เพื่อรอการเปลี่ยนแปลงจากเมนู
-      selector.addEventListener('change', (event) => {
-        const selectedWebhookUrl = event.target.value;
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
 
-        // ถ้าผู้ใช้เลือก Chatbot (ไม่ใช่ตัวเลือก '-- กรุณาเลือก --')
-        if (selectedWebhookUrl && chatbotConfigs[selectedWebhookUrl]) {
-          const selectedConfig = chatbotConfigs[selectedWebhookUrl];
-          initializeChat(selectedConfig);
-        } else {
-          // ถ้าผู้ใช้เลือกกลับไปที่ '-- กรุณาเลือก --' ให้ปิด Chatbot ไปเลย
-          if (currentChatInstance) {
-            currentChatInstance.destroy();
-            currentChatInstance = null;
-          }
-        }
+      chatSend.addEventListener('click', sendMessage);
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
       });
     </script>
 </body>
