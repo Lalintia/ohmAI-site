@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="th">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ohmai AI - AI & Automation Specialist</title>
+    <meta name="description" content="AI & Automation Specialist - Transform your business with intelligent chatbots and automation solutions.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+      /* --- การตั้งค่าหลัก & Dark Theme --- */
+      :root { 
+        font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Thai", "Noto Sans", sans-serif; 
+        --gradient-purple: linear-gradient(90deg, #a855f7 0%, #ec4899 100%);
+        --gradient-purple-hover: linear-gradient(90deg, #9333ea 0%, #db2777 100%);
+        --bg-dark: #0b0b0f;
+        --bg-dark-alt: #1a1a2e;
+        --text-white: #ffffff;
+        --text-gray: rgba(255, 255, 255, 0.8);
+        
+        /* --- n8n Chatbot Customization Variables --- */
+        --chat--toggle-bg-color: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+        --chat--color-primary: #a855f7;
+        --chat--color-primary-hover: #9333ea;
+        --chat--border-radius: 16px;
+      }
+      
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      
+      body { 
+        margin: 0; 
+        padding: 0; 
+        background-color: #0b0b0f;
+        background-image: radial-gradient(circle at top, #1a1a2e 0%, #0b0b0f 50%);
+        color: #ffffff; 
+        line-height: 1.6;
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* --- Particles Background Effect --- */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+          radial-gradient(circle at 20% 30%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* --- Top Navigation Header --- */
+      .top-header {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 32px 48px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .profile-section {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .profile-image {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        background: var(--gradient-purple);
+        padding: 2px;
+        box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .profile-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+      }
+
+      .profile-info h2 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #ffffff;
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      .profile-info p {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+        margin: 2px 0 0 0;
+      }
+
+      .nav-menu {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+        align-items: center;
+      }
+
+      .nav-menu a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 400;
+        transition: opacity 0.3s ease;
+        position: relative;
+      }
+
+      .nav-menu a::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--gradient-purple);
+        transition: width 0.3s ease;
+      }
+
+      .nav-menu a:hover {
+        opacity: 0.8;
+      }
+
+      .nav-menu a:hover::after {
+        width: 100%;
+      }
+
+      /* --- Hero Section --- */
+      .hero-section {
+        position: relative;
+        z-index: 5;
+        text-align: center;
+        padding: 60px 24px 80px;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .hero-title {
+        font-size: clamp(42px, 7vw, 84px);
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+
+      .hero-title .gradient-text {
+        background: var(--gradient-purple);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .hero-title .white-text {
+        color: #ffffff;
+      }
+
+      .hero-description {
+        font-size: clamp(16px, 2vw, 18px);
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.6;
+        margin-bottom: 32px;
+        max-width: 650px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .features {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        margin-bottom: 36px;
+        flex-wrap: wrap;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .feature-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--gradient-purple);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+      }
+
+      .feature-icon::before {
+        content: '✓';
+        color: white;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .feature-text {
+        color: #ffffff;
+        font-size: 15px;
+      }
+
+      /* --- CTA Button --- */
+      .cta-button {
+        display: inline-block;
+        padding: 18px 40px;
+        border-radius: 12px;
+        background: var(--gradient-purple);
+        box-shadow: 0 8px 24px rgba(168, 85, 247, 0.3);
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(168, 85, 247, 0.4);
+        background: var(--gradient-purple-hover);
+      }
+
+      /* --- Partners Section --- */
+      .partners-section {
+        position: relative;
+        z-index: 5;
+        text-align: center;
+        padding: 60px 24px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .partners-title {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 32px;
+      }
+
+      .partners-logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 48px;
+        flex-wrap: wrap;
+        opacity: 0.6;
+      }
+
+      .partner-logo {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 18px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .partner-logo:hover {
+        opacity: 1;
+      }
+
+      /* --- Footer --- */
+      footer {
+        position: relative;
+        z-index: 5;
+        text-align: center;
+        padding: 40px 24px;
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 14px;
+      }
+
+      /* --- Responsive Design --- */
+      @media (max-width: 768px) {
+        .top-header {
+          flex-direction: column;
+          gap: 20px;
+          padding: 20px;
+        }
+
+        .nav-menu {
+          gap: 16px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .nav-menu .profile-image {
+          width: 48px;
+          height: 48px;
+        }
+
+        .hero-section {
+          padding: 40px 20px 60px;
+        }
+
+        .features {
+          flex-direction: column;
+          gap: 20px;
+          align-items: flex-start;
+          max-width: 300px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .partners-logos {
+          gap: 32px;
+        }
+      }
+
+      /* --- n8n Chatbot Customization --- */
+      /* ปรับสีปุ่ม Chatbot และ Chat Window ให้เข้ากับ theme */
+      .n8n-chat .n8n-chat-toggle {
+        background: var(--chat--toggle-bg-color) !important;
+        box-shadow: 0 8px 24px rgba(168, 85, 247, 0.5) !important;
+        border-radius: 50% !important;
+        border: none !important;
+      }
+
+      .n8n-chat .n8n-chat-toggle:hover {
+        background: linear-gradient(135deg, #9333ea 0%, #db2777 100%) !important;
+        box-shadow: 0 12px 32px rgba(168, 85, 247, 0.6) !important;
+        transform: scale(1.05);
+        transition: all 0.3s ease;
+      }
+
+      /* Chat Window Header */
+      .n8n-chat .n8n-chat-header {
+        background: var(--chat--toggle-bg-color) !important;
+        border-radius: 16px 16px 0 0 !important;
+        color: #ffffff !important;
+        padding: 16px 20px !important;
+      }
+
+      /* Chat Window Container */
+      .n8n-chat .n8n-chat-container {
+        border-radius: 16px !important;
+        box-shadow: 0 20px 60px rgba(168, 85, 247, 0.3) !important;
+        border: 1px solid rgba(168, 85, 247, 0.2) !important;
+        overflow: hidden !important;
+      }
+
+      /* Chat Messages Area */
+      .n8n-chat .n8n-chat-messages {
+        background: #0b0b0f !important;
+      }
+
+      /* Chat Input Container */
+      .n8n-chat .n8n-chat-input-container {
+        background: #1a1a2e !important;
+        border-top: 1px solid rgba(168, 85, 247, 0.2) !important;
+        padding: 16px !important;
+      }
+
+      /* Chat Input Field */
+      .n8n-chat .n8n-chat-input {
+        width: 100% !important;
+        font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Thai", sans-serif !important;
+        font-size: 1rem !important;
+        border-radius: 12px !important;
+        border: 1px solid rgba(168, 85, 247, 0.3) !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        color: #ffffff !important;
+        padding: 12px 16px !important;
+      }
+
+      .n8n-chat .n8n-chat-input:focus {
+        border-color: var(--chat--color-primary) !important;
+        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2) !important;
+        outline: none !important;
+      }
+
+      .n8n-chat .n8n-chat-input::placeholder {
+        color: rgba(255, 255, 255, 0.5) !important;
+      }
+
+      /* Chat Buttons */
+      .n8n-chat .n8n-chat-button {
+        background: var(--chat--color-primary) !important;
+        border-radius: 12px !important;
+        border: none !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease !important;
+      }
+
+      .n8n-chat .n8n-chat-button:hover {
+        background: var(--chat--color-primary-hover) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4) !important;
+      }
+
+      /* Chat Message Bubbles */
+      .n8n-chat .n8n-chat-message-user {
+        background: var(--chat--toggle-bg-color) !important;
+        color: #ffffff !important;
+        border-radius: 16px !important;
+      }
+
+      .n8n-chat .n8n-chat-message-bot {
+        background: rgba(255, 255, 255, 0.05) !important;
+        color: #ffffff !important;
+        border-radius: 16px !important;
+        border: 1px solid rgba(168, 85, 247, 0.2) !important;
+      }
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet"/>
+</head>
+<body>
+    <!-- Top Header with Profile & Navigation -->
+    <header class="top-header">
+      <div class="profile-section">
+        <div class="profile-image">
+          <img src="me.png" alt="Ohmai AI Profile">
+        </div>
+        <div class="profile-info">
+          <h2>Ohmai AI</h2>
+          <p>AI & Automation Specialist</p>
+        </div>
+      </div>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#case-studies">Case Studies</a></li>
+          <li><a href="#about-me">About Me</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1 class="hero-title">
+        <span class="gradient-text">AI Chatbot</span>
+        <span class="white-text">& Automation Expert</span>
+      </h1>
+      <p class="hero-description">
+        Transform your business with intelligent AI chatbots and automation solutions. Build smart conversational experiences that engage customers 24/7 and streamline your operations with cutting-edge automation technology.
+      </p>
+      
+      <div class="features">
+        <div class="feature-item">
+          <div class="feature-icon"></div>
+          <span class="feature-text">Custom AI Chatbot Development</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"></div>
+          <span class="feature-text">Business Process Automation</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"></div>
+          <span class="feature-text">24/7 Customer Support Solutions</span>
+        </div>
+      </div>
+
+      <a href="#contact" class="cta-button">Start Your AI Journey Today</a>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+      <p class="partners-title">TRUSTED BY BUSINESSES & STARTUPS</p>
+      <div class="partners-logos">
+        <a href="#" class="partner-logo">Tech Solutions</a>
+        <a href="#" class="partner-logo">Digital Ventures</a>
+        <a href="#" class="partner-logo">AI Innovations</a>
+        <a href="#" class="partner-logo">Automation Labs</a>
+        <a href="#" class="partner-logo">Smart Business</a>
+      </div>
+    </section>
+
+    <footer>© <span id="y"></span> Ohmai AI - All rights reserved</footer>
+    <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+
+    <script type="module">
+      import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
+
+      createChat({
+        webhookUrl: "https://dev.ohmai.me/webhook/fd4cedb7-6d0f-4d41-b539-798ea05ad81e/chat",
+        initialMessages: [
+          "ยินดีต้อนรับสู่ AI Chatbot Demo!",
+          "คุณสามารถลองสอบถามข้อมูลได้ที่นี่.",
+          "เริ่มต้นพิมพ์ข้อความเพื่อทดสอบ",
+        ],
+        i18n: {
+          th: {
+            title: "นี่คือ Chatbot ทดสอบ",
+            subtitle: "เดโมสำหรับลูกค้า",
+            inputPlaceholder: "พิมพ์ข้อความเพื่อทดสอบ...",
+          },
+        },
+      });
+    </script>
+</body>
+</html>
