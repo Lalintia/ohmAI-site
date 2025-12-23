@@ -504,23 +504,25 @@
     <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 
     <script type="module">
-      import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
+  import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
 
-      createChat({
-        webhookUrl: "https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat",
-        initialMessages: [
-          "ยินดีต้อนรับสู่ AI Chatbot Demo!",
-          "คุณสามารถลองสอบถามข้อมูลได้ที่นี่.",
-          "เริ่มต้นพิมพ์ข้อความเพื่อทดสอบ",
-        ],
-        i18n: {
-          th: {
-            title: "นี่คือ Chatbot ทดสอบ",
-            subtitle: "เดโมสำหรับลูกค้า",
-            inputPlaceholder: "พิมพ์ข้อความเพื่อทดสอบ...",
-          },
-        },
-      });
-    </script>
+  createChat({
+    webhookUrl: "https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat",
+    defaultLanguage: 'th', // <--- ต้องระบุเพื่อให้มันไปดึงค่าจาก i18n.th
+    initialMessages: [
+      "ยินดีต้อนรับสู่ AI Chatbot Demo!",
+      "คุณสามารถลองสอบถามข้อมูลได้ที่นี่.",
+      "เริ่มต้นพิมพ์ข้อความเพื่อทดสอบ",
+    ],
+    i18n: {
+      th: {
+        title: "นี่คือ Chatbot ทดสอบ",
+        subtitle: "เดโมสำหรับลูกค้า",
+        inputPlaceholder: "พิมพ์ข้อความเพื่อทดสอบ...",
+        sendButtonTooltip: "ส่งข้อความ", // เพิ่มส่วนนี้เพื่อความสมบูรณ์
+      },
+    },
+  });
+</script>
 </body>
 </html>
