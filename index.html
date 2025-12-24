@@ -339,104 +339,9 @@
         }
       }
 
-      /* --- n8n Chatbot Customization --- */
-      /* ปรับสีปุ่ม Chatbot และ Chat Window ให้เข้ากับ theme */
-      .n8n-chat .n8n-chat-toggle {
-        background: var(--chat--toggle-bg-color) !important;
-        box-shadow: 0 8px 24px rgba(168, 85, 247, 0.5) !important;
-        border-radius: 50% !important;
-        border: none !important;
-      }
-
-      .n8n-chat .n8n-chat-toggle:hover {
-        background: linear-gradient(135deg, #9333ea 0%, #db2777 100%) !important;
-        box-shadow: 0 12px 32px rgba(168, 85, 247, 0.6) !important;
-        transform: scale(1.05);
-        transition: all 0.3s ease;
-      }
-
-      /* Chat Window Header */
-      .n8n-chat .n8n-chat-header {
-        background: var(--chat--toggle-bg-color) !important;
-        border-radius: 16px 16px 0 0 !important;
-        color: #ffffff !important;
-        padding: 16px 20px !important;
-      }
-
-      /* Chat Window Container */
-      .n8n-chat .n8n-chat-container {
-        border-radius: 16px !important;
-        box-shadow: 0 20px 60px rgba(168, 85, 247, 0.3) !important;
-        border: 1px solid rgba(168, 85, 247, 0.2) !important;
-        overflow: hidden !important;
-      }
-
-      /* Chat Messages Area */
-      .n8n-chat .n8n-chat-messages {
-        background: #0b0b0f !important;
-      }
-
-      /* Chat Input Container */
-      .n8n-chat .n8n-chat-input-container {
-        background: #1a1a2e !important;
-        border-top: 1px solid rgba(168, 85, 247, 0.2) !important;
-        padding: 16px !important;
-      }
-
-      /* Chat Input Field */
-      .n8n-chat .n8n-chat-input {
-        width: 100% !important;
-        font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Thai", sans-serif !important;
-        font-size: 1rem !important;
-        border-radius: 12px !important;
-        border: 1px solid rgba(168, 85, 247, 0.3) !important;
-        background: rgba(255, 255, 255, 0.05) !important;
-        color: #ffffff !important;
-        padding: 12px 16px !important;
-      }
-
-      .n8n-chat .n8n-chat-input:focus {
-        border-color: var(--chat--color-primary) !important;
-        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2) !important;
-        outline: none !important;
-      }
-
-      .n8n-chat .n8n-chat-input::placeholder {
-        color: rgba(255, 255, 255, 0.5) !important;
-      }
-
-      /* Chat Buttons */
-      .n8n-chat .n8n-chat-button {
-        background: var(--chat--color-primary) !important;
-        border-radius: 12px !important;
-        border: none !important;
-        color: #ffffff !important;
-        font-weight: 600 !important;
-        transition: all 0.3s ease !important;
-      }
-
-      .n8n-chat .n8n-chat-button:hover {
-        background: var(--chat--color-primary-hover) !important;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4) !important;
-      }
-
-      /* Chat Message Bubbles */
-      .n8n-chat .n8n-chat-message-user {
-        background: var(--chat--toggle-bg-color) !important;
-        color: #ffffff !important;
-        border-radius: 16px !important;
-      }
-
-      .n8n-chat .n8n-chat-message-bot {
-        background: rgba(255, 255, 255, 0.05) !important;
-        color: #ffffff !important;
-        border-radius: 16px !important;
-        border: 1px solid rgba(168, 85, 247, 0.2) !important;
-      }
     </style>
 
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet"/>
+    
 </head>
 <body>
     <!-- Top Header with Profile & Navigation -->
@@ -502,27 +407,14 @@
 
     <footer>© <span id="y"></span> Ohmai AI - All rights reserved</footer>
     <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
-
+        
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet"/>
     <script type="module">
-  import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
-
-  createChat({
-    webhookUrl: "https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat",
-    defaultLanguage: 'th', // <--- ต้องระบุเพื่อให้มันไปดึงค่าจาก i18n.th
-    initialMessages: [
-      "ยินดีต้อนรับสู่ AI Chatbot Demo!",
-      "คุณสามารถลองสอบถามข้อมูลได้ที่นี่.",
-      "เริ่มต้นพิมพ์ข้อความเพื่อทดสอบ",
-    ],
-    i18n: {
-      th: {
-        title: "นี่คือ Chatbot ทดสอบ",
-        subtitle: "เดโมสำหรับลูกค้า",
-        inputPlaceholder: "พิมพ์ข้อความเพื่อทดสอบ...",
-        sendButtonTooltip: "ส่งข้อความ", // เพิ่มส่วนนี้เพื่อความสมบูรณ์
-      },
-    },
-  });
+        import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
+        
+        createChat({
+            webhookUrl: "https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat",
+        });
 </script>
 </body>
 </html>
