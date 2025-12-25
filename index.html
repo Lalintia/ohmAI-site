@@ -34,12 +34,22 @@
 
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
     <script type="module">
-	    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-	    createChat({
-		    webhookUrl: 'https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat'
-	    });
-    </script>
+  createChat({
+    webhookUrl: 'https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat',
+
+    // 🔴 ปิด welcome screen ทั้งหมด
+    showWelcomeScreen: false,
+
+    // 🔴 ไม่ส่งข้อความทักทายใด ๆ
+    initialMessages: [],
+
+    // (optional) เปลี่ยน placeholder เป็นภาษาไทย
+    inputPlaceholder: 'พิมพ์คำถามของคุณที่นี่…',
+  });
+</script>
+
 
 </body>
 </html>
