@@ -12,15 +12,24 @@
     />
 
     <style>
-      /* ===== n8n chat theme (Corporate: Navy + Red accent) ===== */
+      /* ===== n8n chat theme ===== */
       :root {
+        /* Primary (Header) - Navy */
         --chat--color-primary: #0b2e5e;
         --chat--color-primary-shade-50: #0a2a55;
         --chat--color-primary-shade-100: #08234a;
 
-        --chat--color-secondary: #1e88ff;
-        --chat--color-secondary-shade-50: #156fe0;
+        /* Secondary (Accent) - Back to Red */
+        --chat--color-secondary: #c8102e;
+        --chat--color-secondary-shade-50: #b30e29;
 
+        /* Toggle button (Bubble) - Azure Blue (separate from secondary) */
+        --chat--toggle--background: #1e88ff;
+        --chat--toggle--hover--background: #156fe0;
+        --chat--toggle--active--background: #0f59c6;
+        --chat--toggle--color: #ffffff;
+
+        /* Neutrals */
         --chat--color-white: #ffffff;
         --chat--color-light: #f5f7fb;
         --chat--color-light-shade-50: #e9eef7;
@@ -70,30 +79,4 @@
           "https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat",
         target: "#n8n-chat",
         mode: "window",
-
-        // Open chat directly (no "Get started" welcome screen)
-        showWelcomeScreen: false,
-
-        // If this line causes an error in your version, remove it
-        poweredBy: false,
-
-        // Formal IR greeting (English)
-        initialMessages: [
-          "Welcome to PTT Investor Relations.",
-          "How may I assist you with investor and financial information today?",
-        ],
-
-        // UI texts
-        i18n: {
-          en: {
-            title: "PTT Investor Relations",
-            subtitle:
-              "Ask about results, disclosures, dividends, shareholder services, and key announcements.",
-            footer: "",
-            inputPlaceholder: "Type your Investor Relations question…",
-          },
-        },
-      });
-    </script>
-  </body>
-</html>
+        showWelcome
