@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IR AI Chatbot Test Page</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/@n8n/chat@1.2.1/dist/style.css"
+      rel="stylesheet"
+    />
+
     <style>
-        body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            display: flex; 
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        .container {
-            text-align: center;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f4f4f9;
+        color: #333;
+      }
+      .container {
+        text-align: center;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
     </style>
-</head>
-<body>
+  </head>
 
+  <body>
     <div class="container">
-        <h1>หน้าสำหรับทดสอบ AI Chatbot (IR-PTT)</h1>
-        <p>Status Ready to test RAG and Web Chat</p>
+      <h1>หน้าสำหรับทดสอบ AI Chatbot (IR-PTT)</h1>
+      <p>Status Ready to test RAG and Web Chat</p>
     </div>
-    
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-    <script type="module">
-	    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-	    createChat({
-		webhookUrl: 'https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat'
-	    });
+    <script type="module">
+      import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat@1.2.1/dist/chat.bundle.es.js";
+
+      createChat({
+        webhookUrl:
+          "https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat",
+      });
     </script>
-    
-</body>
+  </body>
 </html>
