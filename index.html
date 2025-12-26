@@ -3,38 +3,61 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IR AI Chatbot Test Page</title>
+    <title>PTT IR – AI Chatbot</title>
 
+    <!-- n8n chat (pin version: same for CSS + JS) -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@n8n/chat@0.68.1/dist/style.css"
     />
 
     <style>
+      /* ===== n8n chat theme (Corporate: Navy + Red accent) ===== */
+      :root {
+        --chat--color-primary: #0b2e5e;
+        --chat--color-primary-shade-50: #0a2a55;
+        --chat--color-primary-shade-100: #08234a;
+
+        --chat--color-secondary: #c8102e;
+        --chat--color-secondary-shade-50: #b30e29;
+
+        --chat--color-white: #ffffff;
+        --chat--color-light: #f5f7fb;
+        --chat--color-light-shade-50: #e9eef7;
+        --chat--color-light-shade-100: #d6deea;
+        --chat--color-medium: #c7cfdd;
+        --chat--color-dark: #0b1220;
+        --chat--color-disabled: #7a8699;
+        --chat--color-typing: #3a4457;
+      }
+
+      /* ===== Your page styling ===== */
       body {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        min-height: 100vh;
         margin: 0;
         background-color: #f4f4f9;
         color: #333;
       }
       .container {
         text-align: center;
-        padding: 20px;
+        padding: 20px 24px;
         background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        max-width: 760px;
+        width: calc(100% - 40px);
       }
     </style>
   </head>
 
   <body>
     <div class="container">
-      <h1>หน้าสำหรับทดสอบ AI Chatbot (IR-PTT)</h1>
-      <p>Status Ready to test RAG and Web Chat</p>
+      <h1>PTT Investor Relations – AI Chatbot</h1>
+      <p>Status: Ready to test IR Q&amp;A</p>
     </div>
 
     <div id="n8n-chat"></div>
@@ -47,7 +70,29 @@
           "https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat",
         target: "#n8n-chat",
         mode: "window",
+
+        // Open chat directly (no "Get started" welcome screen)
         showWelcomeScreen: false,
+
+        // If this line causes an error in your version, remove it
+        poweredBy: false,
+
+        // Formal IR greeting (English)
+        initialMessages: [
+          "Welcome to PTT Investor Relations.",
+          "How may I assist you with investor and financial information today?",
+        ],
+
+        // UI texts
+        i18n: {
+          en: {
+            title: "PTT Investor Relations",
+            subtitle:
+              "Ask about results, disclosures, dividends, shareholder services, and key announcements.",
+            footer: "",
+            inputPlaceholder: "Type your Investor Relations question…",
+          },
+        },
       });
     </script>
   </body>
