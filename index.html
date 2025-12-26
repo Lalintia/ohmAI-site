@@ -79,4 +79,23 @@
           "https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat",
         target: "#n8n-chat",
         mode: "window",
-        showWelcome
+        showWelcomeScreen: false,
+
+        initialMessages: [
+          "Welcome to PTT Investor Relations.",
+          "How may I assist you with investor and financial information today?",
+        ],
+
+        i18n: {
+          en: {
+            title: "PTT Investor Relations",
+            subtitle:
+              "Ask about results, disclosures, dividends, shareholder services, and key announcements.",
+            footer: "",
+            inputPlaceholder: "Type your Investor Relations question…",
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
