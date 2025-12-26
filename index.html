@@ -30,7 +30,15 @@
         <h1>หน้าสำหรับทดสอบ AI Chatbot (IR-PTT)</h1>
         <p>Status Ready to test RAG and Web Chat</p>
     </div>
+    
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <script type="module">
+	    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
+	    createChat({
+		webhookUrl: 'https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat'
+	    });
+    </script>
     
 </body>
 </html>
