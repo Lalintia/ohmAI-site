@@ -38,12 +38,30 @@
     </div>
 
     <script type="module">
-      import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat@1.2.1/dist/chat.bundle.es.js";
+  import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat@0.40.0/dist/chat.bundle.es.js";
 
-      createChat({
-        webhookUrl:
-          "https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat",
-      });
-    </script>
+  createChat({
+    webhookUrl: "https://dev.ohmai.me/webhook/3741c36b-35e2-4e0c-94e9-0397b78fab03/chat",
+
+    mode: "window",
+    showWelcomeScreen: true,
+
+    initialMessages: ["สวัสดีครับ 👋", "ต้องการให้ช่วยเรื่องอะไรดีครับ"],
+
+    i18n: {
+      en: {
+        title: "สวัสดีครับ 👋",
+        subtitle: "เริ่มแชทได้เลย เราพร้อมช่วยคุณ",
+        footer: "",
+        getStarted: "เริ่มบทสนทนาใหม่",
+        inputPlaceholder: "พิมพ์คำถามของคุณ…",
+      },
+    },
+
+    // ตัวเลือกที่มีในบางเวอร์ชัน:
+    // poweredBy: false,
+  });
+</script>
+
   </body>
 </html>
