@@ -59,11 +59,15 @@
         border-bottom: none !important;
       }
 
-      #n8n-chat .chat-header-title {
-        font-size: 18px !important;
+     #n8n-chat .chat-header-title {
+        /* Keep title on one line across widths */
+        font-size: clamp(16px, 2.2vw, 18px) !important;
         font-weight: 600 !important;
         letter-spacing: -0.02em !important;
+        white-space: nowrap !important;
+        line-height: 1.1 !important;
       }
+
 
       /* ===== Chat Background ===== */
       #n8n-chat .chat-messages-container {
