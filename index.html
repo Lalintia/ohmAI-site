@@ -3,37 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PTT IR – AI Chatbot</title>
+    <title>PTT IR — AI Chatbot</title>
 
-    <!-- n8n chat (pin version: same for CSS + JS) -->
+    <!-- n8n chat -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@n8n/chat@0.68.1/dist/style.css"
     />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-      /* ===== n8n chat theme ===== */
+      /* ===== n8n Chat Theme Colors ===== */
       :root {
-        /* Primary (Header) - Navy */
         --chat--color-primary: #0b2e5e;
         --chat--color-primary-shade-50: #0a2a55;
         --chat--color-primary-shade-100: #08234a;
-
-        /* Secondary (Accent) - Back to Red */
         --chat--color-secondary: #c8102e;
         --chat--color-secondary-shade-50: #b30e29;
-
-        /* Toggle button (Bubble) - Azure Blue (separate from secondary) */
         --chat--toggle--background: #1e88ff;
         --chat--toggle--hover--background: #156fe0;
         --chat--toggle--active--background: #0f59c6;
         --chat--toggle--color: #ffffff;
-        
-        /* User message bubble  */
         --chat--message--user--background: #1e88ff;
         --chat--message--user--color: #ffffff;
-
-        /* Neutrals */
         --chat--color-white: #ffffff;
         --chat--color-light: #f5f7fb;
         --chat--color-light-shade-50: #e9eef7;
@@ -44,9 +40,193 @@
         --chat--color-typing: #3a4457;
       }
 
-      /* ===== Your page styling ===== */
+      /* ===== Premium Typography ===== */
+      #n8n-chat * {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+      }
+
+      /* ===== Chat Header ===== */
+      #n8n-chat .chat-header {
+        background: linear-gradient(135deg, #0b2e5e 0%, #1a4a8f 100%) !important;
+        box-shadow: 0 2px 20px rgba(11, 46, 94, 0.15) !important;
+        padding: 20px 24px !important;
+        border-bottom: none !important;
+      }
+
+      #n8n-chat .chat-header-title {
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        letter-spacing: -0.02em !important;
+      }
+
+      /* ===== Chat Background ===== */
+      #n8n-chat .chat-messages-container {
+        background: linear-gradient(180deg, #fafbfd 0%, #f5f8fb 100%) !important;
+      }
+
+      /* ===== Message Bubbles ===== */
+      #n8n-chat .chat-message-bubble {
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+        border-radius: 16px !important;
+        padding: 14px 18px !important;
+        animation: messageSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        max-width: 70% !important;
+        font-size: 15px !important;
+        line-height: 1.5 !important;
+      }
+
+      #n8n-chat .chat-message {
+        margin-bottom: 12px !important;
+      }
+
+      /* User Message */
+      #n8n-chat .chat-message-user .chat-message-bubble {
+        background: linear-gradient(135deg, #1e88ff 0%, #0d6eeb 100%) !important;
+        box-shadow: 0 4px 16px rgba(30, 136, 255, 0.25) !important;
+        font-weight: 500 !important;
+      }
+
+      /* Bot Message */
+      #n8n-chat .chat-message-bot .chat-message-bubble {
+        background: #ffffff !important;
+        border: 1px solid rgba(11, 46, 94, 0.08) !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04) !important;
+        color: #1a1a1a !important;
+        font-weight: 400 !important;
+      }
+
+      /* ===== Floating Button ===== */
+      #n8n-chat .chat-toggle {
+        box-shadow: 
+          0 8px 32px rgba(30, 136, 255, 0.3),
+          0 2px 8px rgba(30, 136, 255, 0.2) !important;
+        animation: floatPulse 4s ease-in-out infinite !important;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        width: 68px !important;
+        height: 68px !important;
+      }
+
+      #n8n-chat .chat-toggle:hover {
+        transform: scale(1.12) translateY(-2px) !important;
+        box-shadow: 
+          0 12px 48px rgba(30, 136, 255, 0.4),
+          0 4px 12px rgba(30, 136, 255, 0.3) !important;
+      }
+
+      /* ===== Input Area ===== */
+      #n8n-chat .chat-input-container {
+        border-top: 1px solid rgba(11, 46, 94, 0.08) !important;
+        background: #ffffff !important;
+        padding: 20px !important;
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.02) !important;
+      }
+
+      #n8n-chat .chat-input {
+        border: 1.5px solid rgba(11, 46, 94, 0.12) !important;
+        border-radius: 12px !important;
+        padding: 14px 18px !important;
+        font-size: 15px !important;
+        font-weight: 400 !important;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        background: #fafbfd !important;
+      }
+
+      #n8n-chat .chat-input:focus {
+        border-color: #1e88ff !important;
+        background: #ffffff !important;
+        box-shadow: 0 0 0 3px rgba(30, 136, 255, 0.1) !important;
+        outline: none !important;
+      }
+
+      #n8n-chat .chat-input::placeholder {
+        color: #8b95a8 !important;
+        font-weight: 400 !important;
+      }
+
+      /* Send Button */
+      #n8n-chat .chat-input-send-button {
+        background: linear-gradient(135deg, #1e88ff 0%, #0d6eeb 100%) !important;
+        border-radius: 10px !important;
+        padding: 12px 20px !important;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        box-shadow: 0 4px 12px rgba(30, 136, 255, 0.25) !important;
+        font-weight: 600 !important;
+      }
+
+      #n8n-chat .chat-input-send-button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(30, 136, 255, 0.35) !important;
+      }
+
+      /* ===== Typing Indicator ===== */
+      #n8n-chat .chat-typing-indicator {
+        background: #ffffff !important;
+        border: 1px solid rgba(11, 46, 94, 0.08) !important;
+        border-radius: 16px !important;
+        padding: 14px 18px !important;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04) !important;
+      }
+
+      /* ===== Scrollbar ===== */
+      #n8n-chat .chat-messages-container::-webkit-scrollbar {
+        width: 6px !important;
+      }
+
+      #n8n-chat .chat-messages-container::-webkit-scrollbar-track {
+        background: transparent !important;
+      }
+
+      #n8n-chat .chat-messages-container::-webkit-scrollbar-thumb {
+        background: rgba(11, 46, 94, 0.2) !important;
+        border-radius: 3px !important;
+      }
+
+      #n8n-chat .chat-messages-container::-webkit-scrollbar-thumb:hover {
+        background: rgba(30, 136, 255, 0.6) !important;
+      }
+
+      /* ===== Chat Window ===== */
+      #n8n-chat .chat-window {
+        border-radius: 20px !important;
+        overflow: hidden !important;
+        box-shadow: 
+          0 24px 64px rgba(0, 0, 0, 0.12),
+          0 8px 24px rgba(0, 0, 0, 0.08) !important;
+        border: 1px solid rgba(11, 46, 94, 0.08) !important;
+      }
+
+      /* ===== Animations ===== */
+      @keyframes messageSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes floatPulse {
+        0%, 100% {
+          transform: translateY(0);
+          box-shadow: 
+            0 8px 32px rgba(30, 136, 255, 0.3),
+            0 2px 8px rgba(30, 136, 255, 0.2);
+        }
+        50% {
+          transform: translateY(-4px);
+          box-shadow: 
+            0 12px 40px rgba(30, 136, 255, 0.4),
+            0 4px 12px rgba(30, 136, 255, 0.3);
+        }
+      }
+
+      /* ===== Landing Page ===== */
       body {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -55,6 +235,7 @@
         background-color: #f4f4f9;
         color: #333;
       }
+      
       .container {
         text-align: center;
         padding: 20px 24px;
@@ -69,8 +250,8 @@
 
   <body>
     <div class="container">
-      <h1>PTT Investor Relations – AI Chatbot</h1>
-      <p>Status: Ready to test IR Q&amp;A</p>
+      <h1>PTT Investor Relations — AI Chatbot</h1>
+      <p>Status: Ready to test IR Q&A</p>
     </div>
 
     <div id="n8n-chat"></div>
@@ -93,10 +274,9 @@
         i18n: {
           en: {
             title: "PTT Investor Relations",
-            subtitle:
-              "Ask about results, disclosures, dividends, shareholder services, and key announcements.",
+            subtitle: "",
             footer: "",
-            inputPlaceholder: "Type your Investor Relations question…",
+            inputPlaceholder: "Type your question…",
           },
         },
       });
