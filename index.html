@@ -127,14 +127,12 @@
         background: #ffffff !important;
         padding: 20px 28px 20px 20px !important; /* ดันเข้าซ้าย */
         box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.02) !important;
-      }
-      #n8n-chat .chat-input-container,
-      #n8n-chat .chat-input-container * {
         box-sizing: border-box !important;
       }
+     
 
 
-      #n8n-chat .chat-input {
+     #n8n-chat .chat-input {
         border: 1.5px solid rgba(11, 46, 94, 0.12) !important;
         border-radius: 12px !important;
         padding: 14px 18px !important;
@@ -142,7 +140,9 @@
         font-weight: 400 !important;
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         background: #fafbfd !important;
+        box-sizing: border-box !important;
       }
+
 
       #n8n-chat .chat-input:focus {
         border-color: #1e88ff !important;
@@ -157,14 +157,15 @@
       }
 
       /* Send Button */
-      #n8n-chat .chat-input-send-button {
+     #n8n-chat .chat-input-send-button {
         background: linear-gradient(135deg, #1e88ff 0%, #0d6eeb 100%) !important;
         border-radius: 10px !important;
-        padding: 12px 18px !important;   /* ลดนิดนึง */
-        margin-right: 6px !important;    /* ขยับเข้าซ้าย */
+        padding: 12px 18px !important;
+        margin-right: 6px !important;  /* ดึงเข้าซ้าย กันตกขอบ */
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         box-shadow: 0 4px 12px rgba(30, 136, 255, 0.25) !important;
         font-weight: 600 !important;
+        box-sizing: border-box !important;
       }
 
 
