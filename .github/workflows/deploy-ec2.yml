@@ -1,33 +1,32 @@
-name: Deploy to EC2
+name: Deploy to EC2 (Singapore)
 
-on:
-  push:
-    branches: [ "main" ]
+  on:
+    push:
+      branches: [ "main" ]
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
 
-      - name: Upload files to EC2 via SCP
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "./*"
-          target: ${{ secrets.EC2_PATH }}
-          rm: false
+        - name: Upload files to EC2 Singapore via SCP
+          uses: appleboy/scp-action@v0.1.7
+          with:
+            host: ${{ secrets.EC2_HOST }}
+            username: ${{ secrets.EC2_USER }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            source: "./*"
+            target: ${{ secrets.EC2_PATH }}
+            rm: false
 
-      - name: Run remote commands (optional)
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            echo "Deployed"
-            # ใส่คำสั่ง restart ได้ถ้าต้องการ เช่น
-            # sudo systemctl restart nginx
+        - name: Reload Nginx
+          uses: appleboy/ssh-action@v1.0.3
+          with:
+            host: ${{ secrets.EC2_HOST }}
+            username: ${{ secrets.EC2_USER }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            script: |
+              sudo systemctl reload nginx
+              echo "Deployed to Singapore successfully"
