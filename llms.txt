@@ -1,0 +1,34 @@
+# ohmAI — AI-Powered Digital Solutions
+
+> Building production-grade AI systems for enterprise and beyond. Based in Bangkok, Thailand.
+
+## About
+
+ohmAI is an AI solutions studio founded by Sawarut Akkarawan. We design and build AI-powered systems — from intelligent chatbots to automated workflows — that actually perform in the real world.
+
+## Services
+
+- **AI Chatbot Development**: GPT-5.1 powered conversational agents with custom RAG pipelines, knowledge base integration, and multi-language support. Built on n8n.
+- **n8n Workflow Automation**: End-to-end workflow automation connecting your entire digital ecosystem — webhooks, APIs, and intelligent routing.
+- **AI Avatar / Generative AI**: Custom AI-generated visual identities and brand imagery using the latest generative AI tools.
+- **AI Infrastructure**: AWS EC2, Docker, PostgreSQL with pgvector — production-grade infrastructure that scales.
+- **AEO / GEO Strategy**: Answer Engine Optimization for the AI-first search era. Make your content visible to ChatGPT, Perplexity, and Gemini.
+- **Knowledge Base Systems**: Structured AI knowledge bases from PDFs, documents, and databases with vector search powered by pgvector.
+
+## Live Projects
+
+- [AI Visibility Checker](https://aicheck.ohmai.me) — AEO & GEO optimization tool that analyzes how AI-friendly your content is across major LLMs.
+- [PTT IR Chatbot](https://ptt.ohmai.me) — GPT-5.1 powered chatbot for PTT Investor Relations with instant access to financial data and annual reports.
+- [HMC Polymers Chatbot](https://hmc.ohmai.me) — AI assistant for HMC Polymers with product spec lookup and technical data retrieval.
+- [FTSE ESG Analyzer](https://esg.ohmai.me) — Crawls company websites and scores them against FTSE Russell ESG standards (14 themes, 381 indicators).
+
+## Tech Stack
+
+GPT-5.1, n8n, AWS EC2, Docker, PostgreSQL, pgvector, Supabase, Python, TypeScript, RAG Pipelines
+
+## Contact
+
+- Website: https://ohmai.me
+- LinkedIn: https://www.linkedin.com/in/sawarut-akkarawan/
+- Email: a.sawarut@gmail.com
+- Location: Bangkok, Thailand
