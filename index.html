@@ -6,6 +6,7 @@
   <title>ohmAI — AI-Powered Digital Solutions | AI Chatbot, Automation & AEO</title>
   <meta name="description" content="ohmAI builds production-grade AI chatbots, n8n workflow automation, and AEO/GEO strategies for enterprise clients. Based in Bangkok, serving globally. By Sawarut Akkarawan.">
   <meta name="author" content="Sawarut Akkarawan">
+  <meta name="publisher" content="ohmAI">
   <link rel="canonical" href="https://ohmai.me/">
 
   <!-- Open Graph -->
@@ -34,61 +35,16 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "ProfessionalService",
+        "@type": "Organization",
         "@id": "https://ohmai.me/#organization",
         "name": "ohmAI",
         "url": "https://ohmai.me",
+        "logo": "https://ohmai.me/favicon.svg",
         "description": "AI-Powered Digital Solutions — chatbots, workflow automation, AEO/GEO strategy, and AI infrastructure for enterprise.",
         "founder": { "@id": "https://ohmai.me/#person" },
-        "areaServed": "Worldwide",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Bangkok",
-          "addressCountry": "TH"
-        },
         "sameAs": [
           "https://www.linkedin.com/in/sawarut-akkarawan/"
-        ],
-        "knowsAbout": [
-          "AI Chatbot Development",
-          "n8n Workflow Automation",
-          "Answer Engine Optimization (AEO)",
-          "Generative Engine Optimization (GEO)",
-          "RAG Pipelines",
-          "Vector Databases",
-          "AWS Infrastructure",
-          "ESG Analytics"
-        ],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "AI Services",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "AI Chatbot Development",
-                "description": "GPT-5.1 powered conversational agents with custom RAG pipelines and knowledge base integration."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "n8n Workflow Automation",
-                "description": "End-to-end workflow automation connecting your entire digital ecosystem."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "AEO / GEO Strategy",
-                "description": "Answer Engine Optimization for AI-first search — ChatGPT, Perplexity, and Gemini visibility."
-              }
-            }
-          ]
-        }
+        ]
       },
       {
         "@type": "Person",
@@ -106,7 +62,41 @@
         "@id": "https://ohmai.me/#website",
         "url": "https://ohmai.me",
         "name": "ohmAI",
-        "publisher": { "@id": "https://ohmai.me/#organization" }
+        "publisher": { "@id": "https://ohmai.me/#organization" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://ohmai.me/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is ohmAI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ohmAI is an AI solutions studio that builds production-grade AI chatbots, n8n workflow automation, and AEO/GEO strategies for enterprise clients. Based in Bangkok, Thailand."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What services does ohmAI offer?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ohmAI offers AI Chatbot Development (GPT-5.1 with RAG pipelines), n8n Workflow Automation, AI Avatar creation, AI Infrastructure (AWS, Docker, pgvector), AEO/GEO Strategy for AI search visibility, and Knowledge Base Systems."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I contact ohmAI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can reach ohmAI through LinkedIn at linkedin.com/in/sawarut-akkarawan or visit ohmai.me. ohmAI is based in Bangkok, Thailand and works with clients globally."
+            }
+          }
+        ]
       }
     ]
   }
@@ -757,6 +747,35 @@
       .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
       .work-header { flex-direction: column; align-items: flex-start; }
     }
+
+    /* FAQ */
+    .faq details {
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 0;
+    }
+    .faq summary {
+      cursor: pointer;
+      color: var(--text-1);
+      font-size: 1.0625rem;
+      list-style: none;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::before { content: '+ '; color: var(--accent); font-weight: 700; margin-right: 0.5rem; }
+    .faq details[open] summary::before { content: '− '; }
+
+    /* Screen reader only */
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Figure inside project cards */
+    .project-card figure { margin: 0; }
   </style>
 </head>
 <body>
@@ -840,6 +859,7 @@
   </div>
 
   <!-- CAPABILITIES -->
+  <article>
   <section class="capabilities" id="capabilities">
     <div class="container">
       <div class="cap-header">
@@ -914,7 +934,7 @@
 
         <!-- Project 1 -->
         <a href="https://aicheck.ohmai.me" class="project-card" target="_blank" rel="noopener noreferrer" data-delay="0">
-          <img src="img/aicheck.jpg" alt="AI Visibility Checker" class="project-img">
+          <figure><img src="img/aicheck.jpg" alt="AI Visibility Checker — AEO and GEO optimization tool for AI search readiness" class="project-img" width="800" height="450"><figcaption class="sr-only">AI Visibility Checker by ohmAI</figcaption></figure>
           <div class="project-body">
             <span class="project-tag">AEO / GEO</span>
             <h3>AI Visibility Checker</h3>
@@ -929,7 +949,7 @@
 
         <!-- Project 2 -->
         <a href="https://ptt.ohmai.me" class="project-card" target="_blank" rel="noopener noreferrer" data-delay="0.1">
-          <img src="img/ptt.jpg" alt="PTT IR Chatbot" class="project-img">
+          <figure><img src="img/ptt.jpg" alt="PTT Investor Relations AI Chatbot — GPT-5.1 powered financial data assistant" class="project-img" width="800" height="450"><figcaption class="sr-only">PTT IR Chatbot by ohmAI</figcaption></figure>
           <div class="project-body">
             <span class="project-tag">AI Chatbot</span>
             <h3>PTT IR Chatbot</h3>
@@ -944,7 +964,7 @@
 
         <!-- Project 3 -->
         <a href="https://hmc.ohmai.me" class="project-card" target="_blank" rel="noopener noreferrer" data-delay="0.2">
-          <img src="img/hmc.jpg" alt="HMC Polymers Chatbot" class="project-img">
+          <figure><img src="img/hmc.jpg" alt="HMC Polymers AI Chatbot — industrial product spec lookup and grade selection" class="project-img" width="800" height="450"><figcaption class="sr-only">HMC Polymers Chatbot by ohmAI</figcaption></figure>
           <div class="project-body">
             <span class="project-tag">AI Chatbot</span>
             <h3>HMC Polymers Chatbot</h3>
@@ -959,7 +979,7 @@
 
         <!-- Project 4 -->
         <a href="https://esg.ohmai.me" class="project-card" target="_blank" rel="noopener noreferrer" data-delay="0.3">
-          <img src="img/esg.jpg" alt="FTSE ESG Analyzer" class="project-img">
+          <figure><img src="img/esg.jpg" alt="FTSE ESG Analyzer — ESG compliance scoring against 14 themes and 381 indicators" class="project-img" width="800" height="450"><figcaption class="sr-only">FTSE ESG Analyzer by ohmAI</figcaption></figure>
           <div class="project-body">
             <span class="project-tag">ESG Analytics</span>
             <h3>FTSE ESG Analyzer</h3>
@@ -976,7 +996,10 @@
     </div>
   </section>
 
+  </article>
+
   <!-- QUOTE / ABOUT -->
+  <aside>
   <section class="quote-section" id="about">
     <div class="quote-glow"></div>
     <div class="quote-content container">
@@ -991,6 +1014,34 @@
       </div>
     </div>
   </section>
+  </aside>
+
+  <!-- FAQ -->
+  <section id="faq" style="background:var(--bg-2);padding:5rem 3rem;">
+    <div class="container faq">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <details open>
+        <summary><strong>What is ohmAI?</strong></summary>
+        <p style="color:var(--text-2);margin:1rem 0;line-height:1.7;">ohmAI is an AI solutions studio that builds production-grade AI chatbots, n8n workflow automation, and AEO/GEO strategies for enterprise clients. Based in Bangkok, Thailand.</p>
+      </details>
+      <details>
+        <summary><strong>What services does ohmAI offer?</strong></summary>
+        <p style="color:var(--text-2);margin:1rem 0;line-height:1.7;">We offer AI Chatbot Development (GPT-5.1 with RAG pipelines), n8n Workflow Automation, AI Avatar creation, AI Infrastructure (AWS, Docker, pgvector), AEO/GEO Strategy for AI search visibility, and Knowledge Base Systems with vector search.</p>
+      </details>
+      <details>
+        <summary><strong>How can I contact ohmAI?</strong></summary>
+        <p style="color:var(--text-2);margin:1rem 0;line-height:1.7;">You can reach us through LinkedIn at linkedin.com/in/sawarut-akkarawan or email. We are based in Bangkok, Thailand and work with clients globally.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Author byline -->
+  <div class="container" style="padding:2rem 3rem;">
+    <p class="byline author" style="color:var(--text-3);font-size:0.875rem;">
+      Built by <a href="https://www.linkedin.com/in/sawarut-akkarawan/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Sawarut Akkarawan</a> — AI Solutions Architect at ohmAI, Bangkok
+    </p>
+  </div>
 
   </main>
 
