@@ -56,23 +56,43 @@ OhmWebsite/
 - twitter:card, twitter:title, twitter:description, twitter:image
 - og-image.png สร้างแล้ว (1200x630, gradient branding)
 
-### Schema.org JSON-LD
-- ProfessionalService (ohmAI organization)
+### Schema.org JSON-LD (100/100)
+- Organization (name, url, logo, description, sameAs, contactPoint, address)
 - Person (Sawarut Akkarawan)
-- WebSite
-- OfferCatalog (3 services: Chatbot, Automation, AEO/GEO)
+- WebSite (name, url, description, inLanguage, publisher with @type, potentialAction/SearchAction)
+- FAQPage (3 questions: What is ohmAI, Services, Contact)
 
-### Semantic HTML
+### Semantic HTML (80/100)
 - `<header>` ครอบ `<nav>`
 - `<main>` ครอบ content sections
+- `<article>` ครอบ capabilities + work sections
+- `<aside>` ครอบ quote/about section
+- `<section>` สำหรับ FAQ
 - `<footer>` อยู่แล้ว
 - `nav aria-label="Main navigation"`
+
+### FAQ Section
+- 3 คำถาม-ตอบ ด้วย `<details>/<summary>` pattern
+- FAQPage schema ใน JSON-LD
+- CSS styled accordion
+
+### Author Authority / E-E-A-T (90/100)
+- `<meta name="author">` — Sawarut Akkarawan
+- `<meta name="publisher">` — ohmAI
+- Organization schema พร้อม contactPoint
+- Author byline พร้อม LinkedIn link
+
+### Image AI Readiness (95/100)
+- ทุกรูปมี descriptive alt text (ไม่ใช่แค่ชื่อ แต่อธิบายเนื้อหา)
+- `width` / `height` attributes
+- `<figure>` / `<figcaption>` ครอบทุก project image
 
 ### Files สำหรับ Bots
 - `sitemap.xml` — homepage entry
 - `robots.txt` — Allow all + sitemap link
-- `llms.txt` — AI-readable description (services, projects, tech stack, contact)
+- `llms.txt` — AI-readable description (services, projects, tech stack)
 - `favicon.svg` — SVG gradient favicon
+- `og-image.png` — 1200x630 Open Graph image
 
 ### Cloudflare Settings
 - **AI Crawl Control > Cloudflare Managed robots.txt** → ปิดแล้ว (ไม่บล็อก AI bots)
@@ -88,7 +108,7 @@ OhmWebsite/
 | 2 | deploy.yml pin SHA | ใช้ commit SHA แทน mutable tag `v1.0.3` |
 | 3 | ลบ email จาก llms.txt | ลดความเสี่ยง spam/phishing |
 | 4 | Self-host images | โหลด Unsplash images มาเก็บใน `img/` (ไม่ leak visitor IP) |
-| 5 | SSH fingerprint | เพิ่ม `EC2_HOST_FINGERPRINT` ใน GitHub Secrets + deploy.yml |
+| 5 | SSH fingerprint | ลบออกแล้ว — appleboy/ssh-action format ไม่ compatible, ใช้ Cloudflare proxy แทน |
 
 ---
 
@@ -100,10 +120,39 @@ OhmWebsite/
 
 ---
 
+## AI Search Score (aicheck.ohmai.me)
+
+**คะแนนปัจจุบัน: 97/100 — Excellent (3 เม.ย. 2569)**
+
+| # | Check | คะแนน | สถานะ |
+|---|-------|-------|-------|
+| 1 | Schema.org (JSON-LD) 20% | 100 | Pass |
+| 2 | Server-Side Rendering 15% | 95 | Pass |
+| 3 | robots.txt 12% | 100 | Pass |
+| 4 | Heading Hierarchy 9% | 100 | Pass |
+| 5 | Image AI Readiness 8% | 95 | Pass |
+| 6 | Semantic HTML 7% | 80 | Pass |
+| 7 | Sitemap.xml 7% | 100 | Pass |
+| 8 | Open Graph 5% | 100 | Pass |
+| 9 | llms.txt 5% | 100 | Pass |
+| 10 | FAQ/QA Blocks 4% | 85 | Pass |
+| 11 | Author Authority (E-E-A-T) 3% | 90 | Pass |
+| 12 | Page Speed 5% | 100 | Pass |
+
+**12/12 Pass — 0 Partial, 0 Failed**
+
+3 คะแนนที่เหลือมาจาก SSR text-to-HTML ratio ต่ำ (ลักษณะของ single-page site ที่ CSS เยอะ)
+
+### คะแนนที่ขึ้นมา
+- 79/100 (เริ่มต้น) → 92/100 (เพิ่ม FAQ, Author, Semantic, Images) → **97/100** (แก้ Schema.org ครบ)
+
+---
+
 ## History (สำคัญ)
 - เว็บเริ่มจาก personal profile → PTT IR Chatbot landing page → Portfolio site ปัจจุบัน
 - มีช่วงที่ local code ไม่ตรงกับ live (แก้ไขบน server โดยตรง) → sync แล้ว 3 เม.ย. 2569
 - Git history เก่ามี commit message ไม่ดี ("Update index.html" ซ้ำๆ) → ใหม่ใช้ Conventional Commits
+- deploy.yml fingerprint ไม่ compatible กับ appleboy/ssh-action → ลบออก deploy ทำงานปกติ
 
 ---
 
@@ -111,5 +160,4 @@ OhmWebsite/
 - [ ] สร้าง `favicon-32x32.png` + `apple-touch-icon.png` (แปลงจาก SVG)
 - [ ] เพิ่ม `www` subdomain redirect ใน Cloudflare DNS
 - [ ] เพิ่ม MX record หรือ SPF/DKIM/DMARC (ป้องกัน email spoofing)
-- [ ] พิจารณาเพิ่ม FAQ section (เพิ่มคะแนน AEO)
 - [ ] พิจารณาเปลี่ยนรูป project cards เป็น screenshot จริงแทน stock photos
