@@ -15,7 +15,6 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
-        fingerprint: ${{ secrets.EC2_HOST_FINGERPRINT }}
         script: |
           cd /var/www/ohmai.me
           git fetch origin main
