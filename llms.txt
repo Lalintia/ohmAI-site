@@ -30,5 +30,4 @@ GPT-5.1, n8n, AWS EC2, Docker, PostgreSQL, pgvector, Supabase, Python, TypeScrip
 
 - Website: https://ohmai.me
 - LinkedIn: https://www.linkedin.com/in/sawarut-akkarawan/
-- Email: a.sawarut@gmail.com
 - Location: Bangkok, Thailand

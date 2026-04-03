@@ -10,7 +10,7 @@ jobs:
     
     steps:
     - name: Deploy to EC2
-      uses: appleboy/ssh-action@v1.0.3
+      uses: appleboy/ssh-action@036d1f15bd6f56e35e75a8da1e2ef85e0bd0e3ba # v1.0.3
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
